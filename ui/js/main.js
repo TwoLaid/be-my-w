@@ -1,6 +1,6 @@
     var getUserId = function() {
         return localStorage.getItem('user_id');
-    }
+    };
 
     var getValues = function() {
         var values = {};    
@@ -28,7 +28,7 @@
                 $('#' + value).prop('checked', true);                
             }
         });
-    }
+    };
 
     var postPreferences = function(preferences) {
         var user = getUserId();
@@ -80,19 +80,19 @@ $(document).ready(function() {
                 $('#loginerror').show();
             }
         });
-    }
+    };
 
     var adaptPageToLoggedInUser = function(user_id) {
         $('.loggedout').hide();
         $('.loggedin').show();
-    }
+    };
 
     var loginUser = function(user_id) {
         localStorage.setItem('user_id', user_id);
         adaptPageToLoggedInUser(user_id);
         window.location.hash = '#main';
         getPreferences();
-    }
+    };
 
     var checkForSignedInUser = function() {
         user_id = localStorage.getItem('user_id');
@@ -101,7 +101,7 @@ $(document).ready(function() {
         } else {
             $('.loggedin').hide(); 
         }
-    }
+    };
     checkForSignedInUser();
 
     $('#loginform input').keydown(function(e) {
