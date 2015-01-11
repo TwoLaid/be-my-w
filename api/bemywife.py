@@ -7,7 +7,7 @@ from functools import update_wrapper
 
 import psycopg2
 
-from flask import Flask, abort, jsonify, request, make_response, current_app
+from flask import Flask, abort, jsonify, request, make_response, current_app, Response
 
 app = Flask(__name__)
 
@@ -155,6 +155,30 @@ def preferences(user_id):
 def apply_preferences(user_id, vin):
     '''Apply user preferences to target car'''
     return 'Not implemented yet.'
+
+def root_dir():  # pragma: no cover
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), '../ui'))
+
+def get_file(filename):  # pragma: no cover
+    try:
+        src = os.path.join(root_dir(), filename)
+        return open(src).read()
+    except IOError as exc:
+        return str(exc)
+
+@app.route('/ui/')
+@app.route('/ui/<path:path>')
+def get_resource(path='index.html'):  # pragma: no cover
+    mimetypes = {
+        ".css": "text/css",
+        ".html": "text/html",
+        ".js": "application/javascript",
+    }
+    complete_path = os.path.join(root_dir(), path)
+    ext = os.path.splitext(path)[1]
+    mimetype = mimetypes.get(ext, "text/html")
+    content = get_file(complete_path)
+    return Response(content, mimetype=mimetype)
 
 if __name__ == '__main__':
     app.run(debug=True)
