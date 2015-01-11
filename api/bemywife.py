@@ -148,6 +148,10 @@ def preferences(user_id):
         result = {'userid':  user_id}
         pgconn.commit()
         result['preferences'] = get_user_preferences(user_id)
+
+        # publish results
+        apply_preferences(user_id, 'null')
+
         return jsonify(result)
 
     abort(500)
@@ -163,7 +167,7 @@ def apply_preferences(user_id, vin):
     row = cur.fetchone()
     prefs = get_user_preferences(user_id)
     prefs['username'] = row[0]
-    
+
     pref = json.dumps(prefs)
 
     for ws in virtual_cars:
