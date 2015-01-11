@@ -45,6 +45,8 @@ $(document).ready(function() {
 		$('.info-group').hide();
 		$('#sideview-mirror-left').removeClass('left-mirror-folded');
 		$('#sideview-mirror-right').removeClass('right-mirror-folded');
+		$('#left-mirror-x span, #left-mirror-y span').text('0°');
+		$('#right-mirror-x span, #right-mirror-y span').text('0°');
 	}
 
 	function applyPreferences(pref) {
@@ -106,18 +108,16 @@ $(document).ready(function() {
 	}
 
 	applyDefaults();
-	applyPreferences({
+	/*applyPreferences({
 		temperate_seat_driver: '80',
 		temperature: '60',
 		radio: '98.5',
 		seat_position_driver: '3',
-		/*sideview_mirror_right: '41',
-		sideview_mirror_left: '41',*/
 		destination: 'Petuelring 130, Munich, Germany',
 		ecoMode: 'driveSport',
 		creepMode: 'creepOn',
 		breakMode: 'breakHigh'
-	});
+	});*/
 
 
 	var inbox = new ReconnectingWebSocket("ws://"+location.host+"/register", null, {debug:true});

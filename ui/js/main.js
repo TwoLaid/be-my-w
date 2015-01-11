@@ -1,3 +1,5 @@
+API_HOST = location.host;
+
 var getUserId = function() {
     return localStorage.getItem('user_id');
 };
@@ -49,9 +51,13 @@ var setValues = function(values) {
         else if(key === 'mirrorValues'){
             var vals = value.substring(1, value.length - 1).split(',');
             $('#leftMirrorX').val(vals[0]);
+            $('#leftMirrorTextX').text(vals[0] + '°');
             $('#leftMirrorY').val(vals[1]);
+            $('#leftMirrorTextY').text(vals[1] + '°');
             $('#rightMirrorX').val(vals[2]);
+            $('#rightMirrorTextX').text(vals[2] + '°');
             $('#rightMirrorY').val(vals[3]);
+            $('#rightMirrorTextY').text(vals[3] + '°');
             $("#mirrorForm input").trigger("change");
         } else if (key === 'seatPosition') {
             var seatPosition = $("#seatPosition").val(value);
@@ -68,7 +74,7 @@ var postPreferences = function(preferences) {
     if (user == null) {
         return;
     }
-    var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
+    var url = 'http://'+API_HOST+'/preferences/' + user, preferences;
 
     $.ajax({
       type: 'POST',
@@ -84,7 +90,7 @@ var getPreferences = function() {
         return;
     }
     $.ajax({
-        url: 'http://be-my-wife.herokuapp.com/preferences/' + user,
+        url: 'http://'+API_HOST+'/preferences/' + user,
         success: function(result) {
             setValues(result.preferences);
         }
@@ -105,6 +111,10 @@ $(document).ready(function() {
         $(window).scrollTop(0);
         $('div[role=page]').removeClass('selected');
         $('div[role=page]' + hash).addClass('selected');
+
+        if (destinationMap) {
+            google.maps.event.trigger(destinationMap, "resize");
+        }
     });
     $(window).hashchange();
 
@@ -114,7 +124,7 @@ $(document).ready(function() {
     var submitLoginForm = function() {
         $.ajax({
             type: 'GET',
-            url: 'http://be-my-wife.herokuapp.com/login/' + $('#loginform').find('#email').val(),
+            url: 'http://'+API_HOST+'/login/' + $('#loginform').find('#email').val(),
             success: function(data) {
                 $('#loginerror').hide();
                 loginUser(data.userid);
