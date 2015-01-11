@@ -262,6 +262,9 @@ $(document).ready(function() {
                 if (callback) {
                     callback();
                 }
+
+                // only save them once when they change
+                $('#destination_lon, #destination_lat').val('');
             }
         });
     };

@@ -4,7 +4,7 @@ BeMyDrive
 ###Please list your Team Members
 
 * Timo Djürken
-* Pascal Reinhard
+* Pascal Reinhardt
 * Jasper Schulz
 
 
