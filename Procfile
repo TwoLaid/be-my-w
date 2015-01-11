@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath api bemywife:app --log-file=- --debug
+web: gunicorn --pythonpath api bemywife:app --log-file=- --debug --reload
