@@ -16,6 +16,7 @@
         <ul id="nav-mobile" class="right side-nav">
           <li><a href="#main">Home</a></li>
           <li><a href="#preferences">Preferences</a></li>
+          <li><a href="#driving">Drive Options</a></li>
           <li>
             <a href="#login" class="loggedout">Login</a>
             <a href="#" class="loggedin logout">Logout</a>
@@ -106,7 +107,7 @@
         <div class="row">
           <div class="input-field col s12">
             <input id="email" type="text" class="validate">
-            <label for="email">Email/Username</label>
+            <label for="email">Username</label>
           </div>
         </div>
         <div class="row">
@@ -167,7 +168,7 @@
               <h2 class="center light-blue-text"><i class="mdi-image-flash-on"></i></h2>
               <h4>Creep Mode</h4>
             </div>
-            Enable the car to drive slowly like automatic gasoline cars.
+            Enable the car to drive slowly once the break is released. Just like automatic gasoline cars.
             <div class="switch-container">
               <input id="switchCreep" type="checkbox" value="None" class="switch">
               <label style="z-index:2"for="switchCreep" class="label"></label>
@@ -202,7 +203,7 @@
   <footer class="orange">
     <div class="footer-copyright">
       <div class="container">
-      Hack the Drive
+        Hack the Drive
       </div>
     </div>
   </footer>
@@ -215,16 +216,14 @@
   <script src="js/main.js"></script>
 
   <script>
-
-  $(function(){
-    var gauge = $("#tempGauge"),
-      gaugeText = $("#tempValue");
-    console.debug(gauge);
-    gauge.on("change", function(e){
-      var temperature = $("#tempGauge + span").text();
-      gaugeText.text(temperature);
+    $(function(){
+      var gauge = $("#tempGauge"),
+        gaugeText = $("#tempValue");
+      gauge.on("change", function(e){
+        var temperature = $("#tempGauge + span").text();
+        gaugeText.text(temperature);
+      });
     });
-  });
   </script>
 
   </body>
