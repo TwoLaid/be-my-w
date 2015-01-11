@@ -50,8 +50,8 @@ nav .container, footer .container {
 
 nav li.divider {
   border-left: 1px solid #ddd;
-  margin: 5px 0;
-  height: 54px;
+  margin: 10px 0;
+  height: 44px;
 }
 
 input[type=checkbox].switch {
@@ -129,8 +129,8 @@ input[type=checkbox].switch {
   nav li.divider {
     height: 0;
     border-top: 1px solid #555;
-    margin: 5px;
+    margin: 5px 10px;
     margin-bottom: 5px;
-    width: 230px;
+    width: 220px;
   }
 }
