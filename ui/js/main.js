@@ -17,6 +17,8 @@ var getValues = function() {
         
         if ($(form).is('[slider]')) {
             values[action] = $('input', form).val();
+        } else if ($(form).is('[text]')) {
+            values[action] = $('input', form).val();
         } else {    
             var checked = $(':checked', form);
             values[action] = checked.attr('id') || 'off';
@@ -33,6 +35,10 @@ var setValues = function(values) {
     $.each(values, function(key, value) {
         if (key === 'temperature'){
             $('#tempGauge').val(value).trigger('change');
+        }
+        else if(key === 'destination'){
+            $('#destination').attr('value', value).change();
+            $('label[for="destination"]').addClass('active');
         }
         else if(value !== 'off'){
             $('#' + value).prop('checked', true);                
@@ -172,9 +178,7 @@ $(document).ready(function() {
 
     google.maps.event.addDomListener(window, 'load', initializeMaps);
 
-    $('#destinationForm').submit(function(e) {
-        e.preventDefault();
-
+    function updateMap(callback) {
         var geocoder = new google.maps.Geocoder();
         var address = $('#destination').val();
         geocoder.geocode({ 'address': address}, function(results, status) {
@@ -187,9 +191,20 @@ $(document).ready(function() {
                 destinationMarker = new google.maps.Marker({map: destinationMap, position: results[0].geometry.location});
 
                 $('#destination').val(results[0].formatted_address);
+
+                if (callback) {
+                    callback();
+                }
             }
         });
+    }
 
+    $('#destinationForm').submit(function(e) {
+        e.preventDefault();
+        updateMap();
+    });
+    $('#destination').change(function() {
+        updateMap(update);
     });
 
     getPreferences();
