@@ -97,7 +97,7 @@ $(document).ready(function() {
 	});
 
 
-	var inbox = new ReconnectingWebSocket("ws://be-my-wife.herokuapp.com/register");
+	var inbox = new ReconnectingWebSocket("ws://be-my-wife.herokuapp.com/register", null, {debug:true});
 	//var inbox = new ReconnectingWebSocket("ws://localhost:5000/register");
 	// var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
 	//var sock = new WebSocket("ws://localhost:5000/register");
