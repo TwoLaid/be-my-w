@@ -125,6 +125,7 @@ def send_car_destination(vin, destination, longitude, latitude):
             'lon': float(longitude)
         };
         r = requests.post('%s/vehicles/%s/navigation/' % (API_URL, vin), json=payload)
+        app.logger.info('Sent %s to car:', destination)
         app.logger.info(r.text)
     except Exception, e:
         app.logger.warning(e)
@@ -166,15 +167,9 @@ def preferences(user_id):
             elif key == 'destination_lat':
                 lat = value
 
-            app.logger.info(key)
-
             # no UPSERT in postgres :(
             cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
             cur.execute('INSERT INTO preferences VALUES (%s, %s, %s);', (user_id, key, value))
-
-        app.logger.info(dest)
-        app.logger.info(lon)
-        app.logger.info(lat)
 
         if all([v is not None for v in (dest, lon, lat)]):
             send_car_destination(REAL_CAR, dest, lon, lat)
