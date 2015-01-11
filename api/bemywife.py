@@ -207,8 +207,12 @@ def get_resource(path='index.html'):  # pragma: no cover
 def register_virtual(ws):
     virtual_cars.append(ws)
 
-    while not ws.closed:
-        gevent.sleep()
+    while True:
+        try:
+            ws.receive()
+        except:
+            virtual_cars.remove(ws)
+            return
 
 if __name__ == '__main__':
     app.run(debug=True)

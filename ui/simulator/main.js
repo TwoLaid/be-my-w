@@ -7,10 +7,12 @@ var temperature_scale = [240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 
 var modeTranslations = {
 	creepMode: {
 		'creepOn': 'Enabled',
-		'creepOff': 'Disabled'
+		'creepOff': 'Disabled',
+		'off': 'Disabled'
 	}, breakMode: {
 		'breakHigh': 'Strong Breaks',
-		'breakMedium': 'Medium Breaks'
+		'breakMedium': 'Medium Breaks',
+		'breakNormal': 'Medium Breaks'
 	}, ecoMode: {
 		'driveSport': 'Sports Mode',
 		'driveEco': 'Eco Mode',
@@ -96,6 +98,7 @@ $(document).ready(function() {
 
 
 	var inbox = new ReconnectingWebSocket("ws://be-my-wife.herokuapp.com/register");
+	//var inbox = new ReconnectingWebSocket("ws://localhost:5000/register");
 	// var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
 	//var sock = new WebSocket("ws://localhost:5000/register");
 
