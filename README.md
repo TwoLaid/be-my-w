@@ -9,6 +9,8 @@ BeMyDrive
 
 
 ###Please provide a short description of your application
+Vision: In five years from now fewer and fewer people own a car but use carsharing services like DriveNow instead.
+
 With `BeMyW` every shared BMW becomes your BMW. When you arrive at the car the drivers seat and mirrors are already adjusted, your radio stations are configured and your destination is  shown in the navigation system. Get in, press start and enjoy the ride!
 
 `BeMyW` is the remote control for your shared BMWs. On cold days you can set the heater to a cozy temperatur and warm your seat before arriving at your vehicle. Also why not schedule a list of calls you want to do while driving in advance?
