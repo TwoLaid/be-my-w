@@ -16,7 +16,7 @@ var getValues = function() {
         action = action.slice(2);
         
 
-        if ($(form).attr("id") === "mirrorForm"){
+        if ($(form).attr("id") === "mirrorForm") {
             values[action] = $("input", form).map(function(_, e){return e.value}).get();
         }
         else if ($(form).is('[slider]')) {
@@ -175,29 +175,30 @@ $(document).ready(function() {
         setTemperature(temperature);
     });
 
-    var mirror = $("#mirrorForm input").change(function(e){
+    var mirror = $("#mirrorForm input").change(function(e) {
         var target = $(e.target),
             angle = target.val(),
             gid = target.attr("id"),
             tid = gid.slice(0, -1) + 'Text' + gid.slice(-1);
         $("#" + tid).text(angle + '°');
+    });
     
     // Destination / Google Maps
 
     var destinationMap;
     var destinationMarker;
 
-    function initializeMaps() {
+    var initializeMaps = function() {
         var options = {
             zoom: 8,
             center: new google.maps.LatLng(-34.397, 150.644)
         };
         destinationMap = new google.maps.Map(document.getElementById('destinationMap'), options);
-    }
+    };
 
     google.maps.event.addDomListener(window, 'load', initializeMaps);
 
-    function updateMap(callback) {
+    var updateMap = function(callback) {
         var geocoder = new google.maps.Geocoder();
         var address = $('#destination').val();
         geocoder.geocode({ 'address': address}, function(results, status) {
@@ -216,12 +217,13 @@ $(document).ready(function() {
                 }
             }
         });
-    }
+    };
 
     $('#destinationForm').submit(function(e) {
         e.preventDefault();
         updateMap();
     });
+
     $('#destination').change(function() {
         updateMap(update);
     });
