@@ -48,9 +48,31 @@ $(document).ready(function() {
 			} else if (key == 'destination') {
 				$('#destination').show();
 				$('#destination p').text(pref[key]);
-			} else if (key == 'driving_mode') {
+			} else if (key == 'ecoMode') {
 				$('#driving-mode').show();
-				$('#driving-mode p').text(pref[key]);
+				var text = pref[key];
+				if (text == 'driveSport') {
+					text = 'Sports Mode';
+				}
+				$('#driving-mode p').text(text);
+			} else if (key == 'creepMode') {
+				$('#creep-mode').show();
+				var text = pref[key];
+				if (text == 'creepOn') {
+					text = 'Enabled';
+				} else if (text == 'creepOff') {
+					text = 'Disabled';
+				}
+				$('#creep-mode p').text(text);
+			} else if (key == 'breakMode') {
+				$('#break-mode').show();
+				var text = pref[key];
+				if (text == 'breakMedium') {
+					text = 'Medium Breaks';
+				} else if (text == 'breakHigh') {
+					text = 'High Breaks';
+				}
+				$('#break-mode p').text(text);
 			}
 		}
 	}
@@ -64,7 +86,9 @@ $(document).ready(function() {
 		sideview_mirror_right: '41',
 		sideview_mirror_left: '41',
 		destination: 'Petuelring 130, Munich, Germany',
-		driving_mode: 'Sports Mode'
+		ecoMode: 'driveSport',
+		creepMode: 'creepOn',
+		breakMode: 'breakHigh'
 	});
 
 
