@@ -25,7 +25,7 @@ body {
     display: none;
 }
 .info-group h3 {
-    margin: 0;
+    margin-bottom: 0;
 }
 .info-group p {
     margin: 0;

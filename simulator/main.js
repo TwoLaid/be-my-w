@@ -47,6 +47,12 @@ $(document).ready(function() {
 			} else if (key == 'radio') {
 				$('#radio').show();
 				$('#radio p').text(pref[key]);
+			} else if (key == 'destination') {
+				$('#destination').show();
+				$('#destination p').text(pref[key]);
+			} else if (key == 'driving_mode') {
+				$('#driving-mode').show();
+				$('#driving-mode p').text(pref[key]);
 			}
 		}
 	}
@@ -58,7 +64,9 @@ $(document).ready(function() {
 		radio: '98.5',
 		seat_position_driver: '3',
 		sideview_mirror_right: '41',
-		sideview_mirror_left: '41'
+		sideview_mirror_left: '41',
+		destination: 'Petuelring 130, Munich, Germany',
+		driving_mode: 'Sports Mode'
 	});
 
 });
