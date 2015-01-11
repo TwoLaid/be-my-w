@@ -48,6 +48,9 @@ var setValues = function(values) {
 
 var postPreferences = function(preferences) {
     var user = getUserId();
+    if (user == null) {
+        return;
+    }
     var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
 
     $.ajax({
@@ -59,8 +62,12 @@ var postPreferences = function(preferences) {
 };
 
 var getPreferences = function() {
+    var user = getUserId();
+    if (user == null) {
+        return;
+    }
     $.ajax({
-        url: 'http://be-my-wife.herokuapp.com/preferences/' + getUserId(),
+        url: 'http://be-my-wife.herokuapp.com/preferences/' + user,
         success: function(result) {
             setValues(result.preferences);
         }
