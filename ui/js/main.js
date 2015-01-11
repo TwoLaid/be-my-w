@@ -1,3 +1,5 @@
+API_HOST = location.host;
+
 var getUserId = function() {
     return localStorage.getItem('user_id');
 };
@@ -64,7 +66,7 @@ var postPreferences = function(preferences) {
     if (user == null) {
         return;
     }
-    var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
+    var url = 'http://'+API_HOST+'/preferences/' + user, preferences;
 
     $.ajax({
       type: 'POST',
@@ -80,7 +82,7 @@ var getPreferences = function() {
         return;
     }
     $.ajax({
-        url: 'http://be-my-wife.herokuapp.com/preferences/' + user,
+        url: 'http://'+API_HOST+'/preferences/' + user,
         success: function(result) {
             setValues(result.preferences);
         }
@@ -110,7 +112,7 @@ $(document).ready(function() {
     var submitLoginForm = function() {
         $.ajax({
             type: 'GET',
-            url: 'http://be-my-wife.herokuapp.com/login/' + $('#loginform').find('#email').val(),
+            url: 'http://'+API_HOST+'/login/' + $('#loginform').find('#email').val(),
             success: function(data) {
                 $('#loginerror').hide();
                 loginUser(data.userid);
