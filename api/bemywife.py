@@ -43,6 +43,6 @@ def initpg():
     cur = pgconn.cursor()
 
     cur.execute('CREATE TABLE users ( ID INT PRIMARY KEY NOT NULL, USERNAME VARCHAR(50) NOT NULL, FULLNAME VARCHAR(100) NOT NULL );')
-    cur.execute('CREATE TABLE preferences (ID INT NOT NULL, "KEY" VARCHAR(50), "VALUE" TEXT);')
+    cur.execute('CREATE TABLE preferences (USERID INT NOT NULL, "KEY" VARCHAR(50), "VALUE" TEXT);')
 
     return ""
