@@ -48,6 +48,12 @@ nav .container, footer .container {
   padding-top: 0;
 }
 
+nav li.divider {
+  border-left: 1px solid #ddd;
+  margin: 5px 0;
+  height: 54px;
+}
+
 input[type=checkbox].switch {
   visibility: hidden;
   position: absolute;
@@ -117,4 +123,14 @@ input[type=checkbox].switch {
 
 #destinationMap {
   height: 500px;
+}
+
+@media only screen and (max-width: 992px) {
+  nav li.divider {
+    height: 0;
+    border-top: 1px solid #555;
+    margin: 5px;
+    margin-bottom: 5px;
+    width: 230px;
+  }
 }
