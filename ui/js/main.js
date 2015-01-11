@@ -1,3 +1,51 @@
+var getUserId = function(){
+    return localStorage.getItem("user_id");
+}
+
+var getValues = function(){
+    var values = {};    
+    var forms = $("form");
+
+    $.each(forms, function(i, form){
+        if($(form).is('[slider]')){
+            // console.debug('slider', form);
+            return;
+        }
+
+
+
+        var action = $(form).attr('action') || '';
+        if(action.indexOf('#!') == 0){
+            action = action.slice(2);
+            var checked = $(":checked", form);
+            // console.debug(action, checked.attr('id'));
+            values[action] = checked.attr('id') || '';
+        }
+    });
+    return values;    
+};
+
+var setValues = function(values){
+    $("input[type='radio']").prop('checked', false);
+    $("input[type='checkbox']").prop('checked', false);
+
+    $.each(values, function(key, value){
+        $("#" + value).prop("checked", true);
+    });
+
+}
+
+var postPreferences = function(preferences){
+    var user = getUserId();
+    var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
+
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: JSON.stringify(preferences),
+    });
+}
+
 $(document).ready(function() {
     
     // Routing Logic
@@ -55,4 +103,6 @@ $(document).ready(function() {
         }
     }
     check_for_signed_in_user();
+
+    $("form").change(getValues);
 });
