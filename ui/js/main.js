@@ -110,6 +110,7 @@ $(document).ready(function() {
         localStorage.setItem('user_id', user_id);
         adapt_page_to_logged_in_user(user_id);
         window.location.hash = '#main';
+        getPreferences();
     }
 
     function check_for_signed_in_user() {
