@@ -96,7 +96,8 @@ $(document).ready(function() {
 
 
 	// var inbox = new ReconnectingWebSocket("ws://" + location.host + "/register");
-	var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
+	// var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
+	var sock = new WebSocket("ws://localhost:5000/register");
 
 	sock.onmessage = function(event) {
 		console.log('Incoming preferences!');

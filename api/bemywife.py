@@ -207,8 +207,6 @@ def get_resource(path='index.html'):  # pragma: no cover
 def register_virtual(ws):
     virtual_cars.append(ws)
 
-    app.logger.info('Registered a virtual car!')
-
     while not ws.closed:
         gevent.sleep()
 
