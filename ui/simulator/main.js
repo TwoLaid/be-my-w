@@ -9,7 +9,7 @@ var modeTranslations = {
 		'creepOn': 'Enabled',
 		'creepOff': 'Disabled'
 	}, breakMode: {
-		'breakHigh': 'High Breaks',
+		'breakHigh': 'Strong Breaks',
 		'breakMedium': 'Medium Breaks'
 	}, ecoMode: {
 		'driveSport': 'Sports Mode',
