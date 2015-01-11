@@ -207,7 +207,6 @@ $(document).ready(function() {
     var destinationMarker;
 
     var initializeMaps = function() {
-        console.log('initializeMaps!');
         var options = {
             zoom: 8,
             center: new google.maps.LatLng(-34.397, 150.644)
