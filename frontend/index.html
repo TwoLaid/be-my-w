@@ -10,6 +10,30 @@
 </head>
 
 <body>
-    ...content goes here...
+    <!-- Start of first page -->
+    <div data-role="page" id="main">
+
+        <div data-role="header">
+            <h1>Welcome</h1>
+        </div><!-- /header -->
+
+        <div role="main" class="ui-content">
+            <p>I'm first in the source order so I'm shown as the page.</p>
+            <p>View internal page called <a href="#preferences">preferences</a></p>
+        </div><!-- /content -->
+    </div><!-- /page -->
+
+    <!-- Start of second page -->
+    <div data-role="page" id="preferences">
+
+        <div data-role="header">
+            <h1>Preferences</h1>
+        </div><!-- /header -->
+
+        <div role="main" class="ui-content">
+            <p>I'm the second in the source order so I'm hidden when the page loads. I'm just shown if a link that references my id is beeing clicked.</p>
+            <p><a href="#main">Back to main</a></p>
+        </div><!-- /content -->
+    </div><!-- /page -->
 </body>
 </html>
