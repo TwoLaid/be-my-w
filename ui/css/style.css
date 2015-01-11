@@ -16,6 +16,12 @@
 	text-transform: uppercase;
 }
 
-#logo-container {
-	text-transform: none
+#logo-container i {
+	text-transform: none;
+}
+
+#logo-container em, h1 em, h2 em, h3 em, h4 em, h5 em, h6 em {
+	text-transform: none;
+	font-weight: 600;
+
 }
