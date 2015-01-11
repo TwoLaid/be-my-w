@@ -5,7 +5,7 @@ body {
 
 #car {
     float: left;
-    overflow: auto;
+    overflow: visible;
 }
 
 #blueprint {
@@ -77,22 +77,27 @@ body {
 
 .sideview-mirror {
     width: 50px;
-    height: 5px;
-    background: black;
+    height: 44px;
+    background-image: url(img/sideview-mirror.png);
+    background-size: cover;    
     transform: rotate(0deg);
     transform-origin: 0% 0%;
 }
 
 #sideview-mirror-left {
     position: absolute;
-    left: 273px;
-    top: 343px;
+    top: 337px;
+    left: 268px;
+    background-image: url(img/sideview-mirror-left.png);
+    transform: rotate(0deg);
+    transform-origin: 10px 4px;
 }
 
 #sideview-mirror-right {
     position: absolute;
-    left: 273px;
-    top: 37px;
+    left: 268px;
+    top: 1px;
+    transform-origin: 10px 40px;
 }
 
 .overlay {

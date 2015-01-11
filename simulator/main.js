@@ -46,7 +46,7 @@ $(document).ready(function() {
 				$('#sideview-mirror-right').css('transform', 'rotate(-'+pref[key]+'deg)');
 			} else if (key == 'radio') {
 				$('#radio').show();
-				$('#radio p').text(pref[key]);
+				$('#radio p').text(pref[key] + ' FM');
 			} else if (key == 'destination') {
 				$('#destination').show();
 				$('#destination p').text(pref[key]);
