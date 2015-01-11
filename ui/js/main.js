@@ -16,7 +16,7 @@ var getValues = function() {
         action = action.slice(2);
         
         if ($(form).is('[slider]')) {
-            values[action] = $("input", form).val();
+            values[action] = $('input', form).val();
         } else {    
             var checked = $(':checked', form);
             values[action] = checked.attr('id') || 'off';
@@ -32,7 +32,7 @@ var setValues = function(values) {
 
     $.each(values, function(key, value) {
         if (key === 'temperature'){
-            $("#tempGauge").val(value).trigger("change");
+            $('#tempGauge').val(value).trigger('change');
         }
         else if(value !== 'off'){
             $('#' + value).prop('checked', true);                
@@ -134,16 +134,16 @@ $(document).ready(function() {
 
     // Driving Options Management
 
-    var update = function(){
+    var update = function() {
         var preferences = getValues();
         postPreferences(preferences);
     };
 
     $('form').change(update);
 
-    var gauge = $("#tempGauge"),
-        gaugeText = $("#tempValue"),
-        gaugeCText = $("#tempCValue");
+    var gauge = $('#tempGauge'),
+        gaugeText = $('#tempValue'),
+        gaugeCText = $('#tempCValue');
 
     var setTemperature = function(temperature){
         gaugeText.text(temperature);
@@ -151,8 +151,8 @@ $(document).ready(function() {
         update();
     };
 
-    gauge.change(function(e){
-        var temperature = $("#tempGauge").val();
+    gauge.change(function(e) {
+        var temperature = $('#tempGauge').val();
         setTemperature(temperature);
     });
 
