@@ -95,15 +95,23 @@ $(document).ready(function() {
 	});
 
 
-	// var inbox = new ReconnectingWebSocket("ws://" + location.host + "/register");
-	var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
+	var inbox = new ReconnectingWebSocket("ws://be-my-wife.herokuapp.com/register");
+	// var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
 	//var sock = new WebSocket("ws://localhost:5000/register");
 
-	sock.onmessage = function(event) {
+	inbox.onmessage = function(event) {
 		console.log('Incoming preferences!');
 		var prefs = JSON.parse(event.data);
 		console.log(prefs);
 		applyDefaults();
 		applyPreferences(prefs);
 	};
+
+	/*sock.onmessage = function(event) {
+		console.log('Incoming preferences!');
+		var prefs = JSON.parse(event.data);
+		console.log(prefs);
+		applyDefaults();
+		applyPreferences(prefs);
+	};*/
 });
