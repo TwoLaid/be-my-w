@@ -1,55 +1,56 @@
-    var getUserId = function() {
-        return localStorage.getItem('user_id');
-    };
+var getUserId = function() {
+    return localStorage.getItem('user_id');
+};
 
-    var getValues = function() {
-        var values = {};    
-        var forms = $('form');
+var getValues = function() {
+    var values = {};    
+    var forms = $('form');
 
-        $.each(forms, function(i, form) {
-            if ($(form).is('[slider]')) return;
+    $.each(forms, function(i, form) {
+        if ($(form).is('[slider]')) return;
 
-            var action = $(form).attr('action') || '';
-            if(action.indexOf('#!') == 0) {
-                action = action.slice(2);
-                var checked = $(':checked', form);
-                values[action] = checked.attr('id') || 'off';
-            }
-        });
-        return values;    
-    };
+        var action = $(form).attr('action') || '';
+        if(action.indexOf('#!') == 0) {
+            action = action.slice(2);
+            var checked = $(':checked', form);
+            values[action] = checked.attr('id') || 'off';
+        }
+    });
+    return values;    
+};
 
-    var setValues = function(values) {
-        $('input[type=radio]').prop('checked', false);
-        $('input[type=checkbox]').prop('checked', false);
+var setValues = function(values) {
+    $('input[type=radio]').prop('checked', false);
+    $('input[type=checkbox]').prop('checked', false);
 
-        $.each(values, function(key, value) {
-            if(value !== 'off'){
-                $('#' + value).prop('checked', true);                
-            }
-        });
-    };
+    $.each(values, function(key, value) {
+        if(value !== 'off'){
+            $('#' + value).prop('checked', true);                
+        }
+    });
+};
 
-    var postPreferences = function(preferences) {
-        var user = getUserId();
-        var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
+var postPreferences = function(preferences) {
+    var user = getUserId();
+    var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
 
-        $.ajax({
-          type: 'POST',
-          url: url,
-          data: JSON.stringify(preferences),
-          dataType: 'json'
-        });
-    };
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: JSON.stringify(preferences),
+      dataType: 'json'
+    });
+};
 
-    var getPreferences = function() {
-        $.ajax({
-            url: 'http://be-my-wife.herokuapp.com/preferences/' + getUserId(),
-            success: function(result) {
-                setValues(result.preferences);
-            }
-        });
-    };
+var getPreferences = function() {
+    $.ajax({
+        url: 'http://be-my-wife.herokuapp.com/preferences/' + getUserId(),
+        success: function(result) {
+            setValues(result.preferences);
+        }
+    });
+};
+
 
 $(document).ready(function() {
     
