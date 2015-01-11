@@ -1511,7 +1511,7 @@ jQuery.extend( jQuery.easing,
           });
         }
 
-        function removeMenu() {
+        slideInNav = function removeMenu() {
           $('#sidenav-overlay').animate({opacity: 0}, {duration: 300, queue: false, easing: 'easeOutQuad',
             complete: function() {
               $(this).remove();

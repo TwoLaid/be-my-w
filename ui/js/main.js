@@ -1,5 +1,10 @@
 API_HOST = location.host;
 
+var update = function() {
+    var preferences = getValues();
+    postPreferences(preferences);
+};
+
 var setTemperature = function(temperature){
     var gauge = $('#tempGauge'),
     gaugeText = $('#tempValue'),
@@ -51,7 +56,6 @@ var setValues = function(values) {
 
     $.each(values, function(key, value) {
         if (key === 'temperature'){
-            console.debug(key, value);
             $('#tempGauge').val(value);
             setTemperature(value);
         }
@@ -110,6 +114,12 @@ var getPreferences = function() {
 
 
 $(document).ready(function() {
+
+    // Hide Nav on Click
+
+    $('#nav-mobile li').click( function() {
+        slideInNav();
+    });
     
     // Routing Logic
 
@@ -184,11 +194,6 @@ $(document).ready(function() {
 
 
     // Driving Options Management
-
-    var update = function() {
-        var preferences = getValues();
-        postPreferences(preferences);
-    };
 
     $('form').change(update);
 
