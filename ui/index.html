@@ -14,9 +14,9 @@
     <div class="container">
       <div class="nav-wrapper"><a id="logo-container" href="#" class="brand-logo">BMW<i>beMyCar</i></a>
         <ul id="nav-mobile" class="right side-nav">
-          <li><a href="#">Navbar Link</a></li>
-          <li><a href="#">Navbar Link</a></li>
-          <li><a href="#">Navbar Link</a></li>
+          <li><a href="#main">Home</a></li>
+          <li><a href="#preferences">Preferences</a></li>
+          <li><a href="#login">Login</a></li>
         </ul><a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       </div>
     </div>
@@ -93,6 +93,30 @@
 
       </div>
       <br><br>
+    </div>
+  </div>
+
+  <div role="page" id="login">
+    <div class="container">
+      <a href="#main"><i class="mdi-navigation-arrow-back"></i> Back to main page.</a>
+      <h4> Login </h4>
+      <form action="/login" method="post">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="text" class="validate">
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i class="mdi-content-send right"></i>
+        </button>
+      </form>
     </div>
   </div>
 
