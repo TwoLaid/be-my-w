@@ -7,11 +7,17 @@ var getValues = function() {
     var forms = $('form');
 
     $.each(forms, function(i, form) {
-        if ($(form).is('[slider]')) return;
-
         var action = $(form).attr('action') || '';
-        if(action.indexOf('#!') == 0) {
-            action = action.slice(2);
+        
+        if(action.indexOf('#!') != 0) {
+            return;
+        }
+
+        action = action.slice(2);
+        
+        if ($(form).is('[slider]')) {
+            values[action] = $("input", form).val();
+        } else {    
             var checked = $(':checked', form);
             values[action] = checked.attr('id') || 'off';
         }
@@ -23,8 +29,12 @@ var setValues = function(values) {
     $('input[type=radio]').prop('checked', false);
     $('input[type=checkbox]').prop('checked', false);
 
+
     $.each(values, function(key, value) {
-        if(value !== 'off'){
+        if (key === 'temperature'){
+            $("#tempGauge").val(value).trigger("change");
+        }
+        else if(value !== 'off'){
             $('#' + value).prop('checked', true);                
         }
     });
@@ -122,16 +132,28 @@ $(document).ready(function() {
 
     // Driving Options Management
 
-    $('form').change(function() {
+    var update = function(){
         var preferences = getValues();
         postPreferences(preferences);
-    });
+    };
+
+
+
+    $('form').change(update);
 
     var gauge = $("#tempGauge"),
-      gaugeText = $("#tempValue");
-    gauge.on("change", function(e){
-        var temperature = $("#tempGauge + span").text();
+      gaugeText = $("#tempValue"),
+      gaugeCText = $("#tempCValue");
+
+    var setTemperature = function(temperature){
         gaugeText.text(temperature);
+        gaugeCText.text(Math.round((temperature - 32) * (5 / 9)));
+        update();
+    }
+
+    gauge.change(function(e){
+        var temperature = $("#tempGauge").val();
+        setTemperature(temperature);
     });
 
     getPreferences();
