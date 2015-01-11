@@ -82,6 +82,7 @@ body {
     background-size: cover;    
     transform: rotate(0deg);
     transform-origin: 0% 0%;
+    transition: transform 3s;
 }
 
 #sideview-mirror-left {
@@ -90,14 +91,14 @@ body {
     left: 268px;
     background-image: url(img/sideview-mirror-left.png);
     transform: rotate(0deg);
-    transform-origin: 10px 4px;
+    transform-origin: 15px 4px;
 }
 
 #sideview-mirror-right {
     position: absolute;
     left: 268px;
     top: 1px;
-    transform-origin: 10px 40px;
+    transform-origin: 15px 40px;
 }
 
 .overlay {

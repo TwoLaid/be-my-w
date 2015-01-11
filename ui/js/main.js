@@ -15,11 +15,16 @@ var getValues = function() {
 
         action = action.slice(2);
         
+
         if ($(form).attr("id") === "mirrorForm"){
             values[action] = $("input", form).map(function(_, e){return e.value}).get();
         }
         else if ($(form).is('[slider]')) {
             values[action] = $("input", form).val();
+
+        } else if ($(form).is('[text]')) {
+            values[action] = $('input', form).val();
+
         } else {    
             var checked = $(':checked', form);
             values[action] = checked.attr('id') || 'off';
@@ -35,7 +40,11 @@ var setValues = function(values) {
 
     $.each(values, function(key, value) {
         if (key === 'temperature'){
-            $("#tempGauge").val(value).trigger("change");
+            $('#tempGauge').val(value).trigger('change');
+        }
+        else if(key === 'destination'){
+            $('#destination').attr('value', value).change();
+            $('label[for="destination"]').addClass('active');
         }
         else if(value !== 'off'){
             $('#' + value).prop('checked', true);                
@@ -45,6 +54,9 @@ var setValues = function(values) {
 
 var postPreferences = function(preferences) {
     var user = getUserId();
+    if (user == null) {
+        return;
+    }
     var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
 
     $.ajax({
@@ -56,8 +68,12 @@ var postPreferences = function(preferences) {
 };
 
 var getPreferences = function() {
+    var user = getUserId();
+    if (user == null) {
+        return;
+    }
     $.ajax({
-        url: 'http://be-my-wife.herokuapp.com/preferences/' + getUserId(),
+        url: 'http://be-my-wife.herokuapp.com/preferences/' + user,
         success: function(result) {
             setValues(result.preferences);
         }
@@ -137,16 +153,16 @@ $(document).ready(function() {
 
     // Driving Options Management
 
-    var update = function(){
+    var update = function() {
         var preferences = getValues();
         postPreferences(preferences);
     };
 
     $('form').change(update);
 
-    var gauge = $("#tempGauge"),
-        gaugeText = $("#tempValue"),
-        gaugeCText = $("#tempCValue");
+    var gauge = $('#tempGauge'),
+        gaugeText = $('#tempValue'),
+        gaugeCText = $('#tempCValue');
 
     var setTemperature = function(temperature){
         gaugeText.text(temperature);
@@ -154,11 +170,10 @@ $(document).ready(function() {
         update();
     };
 
-    gauge.change(function(e){
-        var temperature = $("#tempGauge").val();
+    gauge.change(function(e) {
+        var temperature = $('#tempGauge').val();
         setTemperature(temperature);
     });
-
 
     var mirror = $("#mirrorForm input").change(function(e){
         var target = $(e.target),
@@ -166,6 +181,49 @@ $(document).ready(function() {
             gid = target.attr("id"),
             tid = gid.slice(0, -1) + 'Text' + gid.slice(-1);
         $("#" + tid).text(angle + '°');
+    
+    // Destination / Google Maps
+
+    var destinationMap;
+    var destinationMarker;
+
+    function initializeMaps() {
+        var options = {
+            zoom: 8,
+            center: new google.maps.LatLng(-34.397, 150.644)
+        };
+        destinationMap = new google.maps.Map(document.getElementById('destinationMap'), options);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initializeMaps);
+
+    function updateMap(callback) {
+        var geocoder = new google.maps.Geocoder();
+        var address = $('#destination').val();
+        geocoder.geocode({ 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                destinationMap.setCenter(results[0].geometry.location);
+                if (destinationMarker) {
+                    destinationMarker.setMap(null);
+                    destinationMarker = null;
+                }
+                destinationMarker = new google.maps.Marker({map: destinationMap, position: results[0].geometry.location});
+
+                $('#destination').val(results[0].formatted_address);
+
+                if (callback) {
+                    callback();
+                }
+            }
+        });
+    }
+
+    $('#destinationForm').submit(function(e) {
+        e.preventDefault();
+        updateMap();
+    });
+    $('#destination').change(function() {
+        updateMap(update);
     });
 
     getPreferences();
