@@ -15,7 +15,10 @@ var getValues = function() {
 
         action = action.slice(2);
         
-        if ($(form).is('[slider]')) {
+        if ($(form).attr("id") === "mirrorForm"){
+            values[action] = $("input", form).map(function(_, e){return e.value}).get();
+        }
+        else if ($(form).is('[slider]')) {
             values[action] = $("input", form).val();
         } else {    
             var checked = $(':checked', form);
@@ -154,6 +157,15 @@ $(document).ready(function() {
     gauge.change(function(e){
         var temperature = $("#tempGauge").val();
         setTemperature(temperature);
+    });
+
+
+    var mirror = $("#mirrorForm input").change(function(e){
+        var target = $(e.target),
+            angle = target.val(),
+            gid = target.attr("id"),
+            tid = gid.slice(0, -1) + 'Text' + gid.slice(-1);
+        $("#" + tid).text(angle + '°');
     });
 
     getPreferences();

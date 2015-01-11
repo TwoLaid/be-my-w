@@ -236,22 +236,57 @@
     <div class="container">
       <div class="row">
         <div class="card">
-          <div class="card-content">
+          <div class="center card-content">
 
             <div class="center">
               <h2 class="center light-blue-text">
                 <i class="mdi-device-signal-cellular-null"></i></h2>
               <h4>Side Mirrors</h4>
             </div>
-            
-            <div class="switch-container">
-              <form action="#!sideMirror">
+            <br>
+
+              <form id="mirrorForm" action="#!mirrorValues" slider>
+                <h5>Left Mirror</h5>
+
+                <h5 id="leftMirrorTextX" class="blue-text">0°</h5>
+                <p class="range-field">
+                  <input type="range" id="leftMirrorX" min="-20" max="20" />
+                </p>
+                <h6>x-Axis</h6>
+                <br>
+
+                <h5 id="leftMirrorTextY" class="blue-text">0°</h5>
+                <p class="range-field">
+                  <input type="range" id="leftMirrorY" min="-20" max="20" />
+                </p>
+                <h6>y-Axis</h6>
+                <br>
+
+                <h5>Right Mirror</h5>
+                <h5 id="rightMirrorTextX" class="blue-text">0°</h5>
+                <p class="range-field">
+                  <input type="range" id="rightMirrorX" min="-20" max="20" />
+                </p>
+                <h6>x-Axis</h6>
+                <br>
+                <h5 id="rightMirrorTextY" class="blue-text">0°</h5>
+                <p class="range-field">
+                  <input type="range" id="rightMirrorY" min="-20" max="20" />
+                </p>
+                <h6>y-Axis</h6>
+
+              </form>
+
+            <br>
+            <h5>Folded</h5>
+          </div>
+          <div class="switch-container">
+            <form action="#!sideMirror">
               <input id="mirrorOn" type="checkbox" value="None" class="switch">
               <label style="z-index:2"for="mirrorOn" class="label"></label>
-              </form>
-            </div>
-
+            </form>
           </div>
+          <br>
         </div>
       </div>
     </div>
