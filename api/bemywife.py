@@ -1,15 +1,19 @@
 import os
 import urlparse
 import logging
+import json
 
 from datetime import timedelta
 from functools import update_wrapper
 
 import psycopg2
+import gevent
 
 from flask import Flask, abort, jsonify, request, make_response, current_app, Response
+from flask_sockets import Sockets
 
 app = Flask(__name__)
+sockets = Sockets(app)
 
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
@@ -21,6 +25,8 @@ pgconn = psycopg2.connect(
     host=url.hostname,
     port=url.port
 )
+
+virtual_cars = []
 
 # List of valid preferences keys
 PREF_KEYS = ('temperature', 'target_address', 'seat_position', 'radio', 'sideview_mirror_left', 'sideview_mirror_right', 'rearview_mirror')
@@ -125,8 +131,6 @@ def preferences(user_id):
         result = {'userid': user_id}
         result['preferences'] = get_user_preferences(user_id)
 
-        app.logger.info(get_user_preferences(user_id)   )
-
         return jsonify(result)
 
     if request.method == 'POST':
@@ -150,11 +154,21 @@ def preferences(user_id):
 
     abort(500)
 
-@app.route('/preferences/<int:user_id>/apply/<int:vin>')
+@app.route('/preferences/<int:user_id>/apply/<string:vin>')
 @crossdomain(origin='*')
 def apply_preferences(user_id, vin):
     '''Apply user preferences to target car'''
-    return 'Not implemented yet.'
+    counter = 0
+    pref = json.dumps(get_user_preferences(user_id))
+
+    for ws in virtual_cars:
+        try:
+            ws.send(pref)
+            counter += 1
+        except Exception:
+            app.logger.info('disconnected!')
+            virtual_cars.remove(ws)
+    return jsonify({'car_count': counter})
 
 def root_dir():  # pragma: no cover
     return os.path.abspath(os.path.join(os.path.dirname(__file__), '../ui'))
@@ -179,6 +193,15 @@ def get_resource(path='index.html'):  # pragma: no cover
     mimetype = mimetypes.get(ext, "text/html")
     content = get_file(complete_path)
     return Response(content, mimetype=mimetype)
+
+@sockets.route('/register')
+def register_virtual(ws):
+    virtual_cars.append(ws)
+
+    app.logger.info('Registered a virtual car!')
+
+    while not ws.closed:
+        gevent.sleep()
 
 if __name__ == '__main__':
     app.run(debug=True)

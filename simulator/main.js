@@ -18,10 +18,8 @@ $(document).ready(function() {
 			if (value == null) {
 				$(this).text('?').css({borderColor: 'black'});
 			} else {
-
+				$(this).text(''+value+'°F').css('border-color', color);
 			}
-			console.log(color);
-			$(this).text(''+value+'°F').css('border-color', color);
 		});
 	}
 
@@ -69,4 +67,15 @@ $(document).ready(function() {
 		driving_mode: 'Sports Mode'
 	});
 
+
+	// var inbox = new ReconnectingWebSocket("ws://" + location.host + "/register");
+	var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
+
+	sock.onmessage = function(event) {
+		console.log('Incoming preferences!');
+		var prefs = JSON.parse(event.data);
+		console.log(prefs);
+		applyDefaults();
+		applyPreferences(prefs);
+	};
 });
