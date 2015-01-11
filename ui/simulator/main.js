@@ -7,10 +7,12 @@ var temperature_scale = [240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 
 var modeTranslations = {
 	creepMode: {
 		'creepOn': 'Enabled',
-		'creepOff': 'Disabled'
+		'creepOff': 'Disabled',
+		'off': 'Disabled'
 	}, breakMode: {
 		'breakHigh': 'Strong Breaks',
-		'breakMedium': 'Medium Breaks'
+		'breakMedium': 'Medium Breaks',
+		'breakNormal': 'Medium Breaks'
 	}, ecoMode: {
 		'driveSport': 'Sports Mode',
 		'driveEco': 'Eco Mode',
@@ -74,6 +76,8 @@ $(document).ready(function() {
 				$('#break-mode').show();
 				var text = modeTranslations[key][pref[key]] || pref[key];
 				$('#break-mode p').text(text);
+			} else if (key == 'username') {
+				$('#current-user').text(pref[key]);
 			}
 		}
 	}
@@ -93,14 +97,28 @@ $(document).ready(function() {
 	});
 
 
-	// var inbox = new ReconnectingWebSocket("ws://" + location.host + "/register");
-	var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
+	var inbox = new ReconnectingWebSocket("ws://be-my-wife.herokuapp.com/register", null, {debug:true});
+	//var inbox = new ReconnectingWebSocket("ws://localhost:5000/register");
+	// var sock = new WebSocket("ws://be-my-wife.herokuapp.com/register");
+	//var sock = new WebSocket("ws://localhost:5000/register");
 
-	sock.onmessage = function(event) {
+	inbox.onmessage = function(event) {
 		console.log('Incoming preferences!');
 		var prefs = JSON.parse(event.data);
 		console.log(prefs);
 		applyDefaults();
 		applyPreferences(prefs);
 	};
+
+	setInterval(function() {
+		inbox.send('ping');
+	}, 10000);
+
+	/*sock.onmessage = function(event) {
+		console.log('Incoming preferences!');
+		var prefs = JSON.parse(event.data);
+		console.log(prefs);
+		applyDefaults();
+		applyPreferences(prefs);
+	};*/
 });

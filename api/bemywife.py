@@ -148,6 +148,10 @@ def preferences(user_id):
         result = {'userid':  user_id}
         pgconn.commit()
         result['preferences'] = get_user_preferences(user_id)
+
+        # publish results
+        apply_preferences(user_id, 'null')
+
         return jsonify(result)
 
     abort(500)
@@ -157,7 +161,14 @@ def preferences(user_id):
 def apply_preferences(user_id, vin):
     '''Apply user preferences to target car'''
     counter = 0
-    pref = json.dumps(get_user_preferences(user_id))
+    # get username
+    cur = pgconn.cursor()
+    cur.execute('SELECT FULLNAME FROM users WHERE ID = %s', (user_id,))
+    row = cur.fetchone()
+    prefs = get_user_preferences(user_id)
+    prefs['username'] = row[0]
+
+    pref = json.dumps(prefs)
 
     for ws in virtual_cars:
         try:
@@ -196,10 +207,12 @@ def get_resource(path='index.html'):  # pragma: no cover
 def register_virtual(ws):
     virtual_cars.append(ws)
 
-    app.logger.info('Registered a virtual car!')
-
-    while not ws.closed:
-        gevent.sleep()
+    while True:
+        try:
+            ws.receive()
+        except:
+            virtual_cars.remove(ws)
+            return
 
 if __name__ == '__main__':
     app.run(debug=True)
