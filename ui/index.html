@@ -168,7 +168,7 @@
               <h2 class="center light-blue-text"><i class="mdi-image-flash-on"></i></h2>
               <h4>Creep Mode</h4>
             </div>
-            Enable the car to drive slowly like automatic gasoline cars.
+            Enable the car to drive slowly once the break is released. Just like automatic gasoline cars.
             <div class="switch-container">
               <input id="switchCreep" type="checkbox" value="None" class="switch">
               <label style="z-index:2"for="switchCreep" class="label"></label>
@@ -216,16 +216,15 @@
   <script src="js/main.js"></script>
 
   <script>
-
-  $(function(){
-    var gauge = $("#tempGauge"),
-      gaugeText = $("#tempValue");
-    console.debug(gauge);
-    gauge.on("change", function(e){
-      var temperature = $("#tempGauge + span").text();
-      gaugeText.text(temperature);
+    $(function(){
+      var gauge = $("#tempGauge"),
+        gaugeText = $("#tempValue");
+      console.debug(gauge);
+      gauge.on("change", function(e){
+        var temperature = $("#tempGauge + span").text();
+        gaugeText.text(temperature);
+      });
     });
-  });
   </script>
 
   </body>
