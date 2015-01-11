@@ -74,6 +74,8 @@ $(document).ready(function() {
 				$('#break-mode').show();
 				var text = modeTranslations[key][pref[key]] || pref[key];
 				$('#break-mode p').text(text);
+			} else if (key == 'username') {
+				$('#current-user').text(pref[key]);
 			}
 		}
 	}

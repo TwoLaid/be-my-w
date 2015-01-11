@@ -157,7 +157,14 @@ def preferences(user_id):
 def apply_preferences(user_id, vin):
     '''Apply user preferences to target car'''
     counter = 0
-    pref = json.dumps(get_user_preferences(user_id))
+    # get username
+    cur = pgconn.cursor()
+    cur.execute('SELECT FULLNAME FROM users WHERE ID = %s', (user_id,))
+    row = cur.fetchone()
+    prefs = get_user_preferences(user_id)
+    prefs['username'] = row[0]
+    
+    pref = json.dumps(prefs)
 
     for ws in virtual_cars:
         try:
