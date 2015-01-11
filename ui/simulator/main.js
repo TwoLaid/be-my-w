@@ -110,6 +110,10 @@ $(document).ready(function() {
 		applyPreferences(prefs);
 	};
 
+	setInterval(function() {
+		inbox.send('ping');
+	}, 10000);
+
 	/*sock.onmessage = function(event) {
 		console.log('Incoming preferences!');
 		var prefs = JSON.parse(event.data);
