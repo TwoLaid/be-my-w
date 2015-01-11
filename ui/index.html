@@ -219,7 +219,6 @@
     $(function(){
       var gauge = $("#tempGauge"),
         gaugeText = $("#tempValue");
-      console.debug(gauge);
       gauge.on("change", function(e){
         var temperature = $("#tempGauge + span").text();
         gaugeText.text(temperature);
