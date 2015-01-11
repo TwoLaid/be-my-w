@@ -43,3 +43,11 @@ div[role=page].selected {
 nav .container, footer .container {
   padding-top: 0;
 }
+
+#loginform {
+  margin-top: 20px;
+}
+#loginerror {
+  display: none;
+  margin-bottom: 30px;
+}

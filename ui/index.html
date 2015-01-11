@@ -16,7 +16,10 @@
         <ul id="nav-mobile" class="right side-nav">
           <li><a href="#main">Home</a></li>
           <li><a href="#preferences">Preferences</a></li>
-          <li><a href="#login">Login</a></li>
+          <li>
+            <a href="#login" class="loggedout">Login</a>
+            <a href="#" class="loggedin logout">Logout</a>
+          </li>
         </ul><a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       </div>
     </div>
@@ -92,11 +95,16 @@
     <div class="container">
       <a href="#main"><i class="mdi-navigation-arrow-back"></i> Back to main page.</a>
       <h4> Login </h4>
-      <form action="/login" method="post">
+      <div class="card-panel red lighten-1" id="loginerror">
+        <span class="white-text">
+          Invalid Username/Password Combination.
+        </span>
+      </div>
+      <form id="loginform" data-action="/login">
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="text" class="validate">
-            <label for="email">Email</label>
+            <input id="email" type="email" class="validate">
+            <label for="email">Email/Username</label>
           </div>
         </div>
         <div class="row">
@@ -105,9 +113,9 @@
             <label for="password">Password</label>
           </div>
         </div>
-        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-          <i class="mdi-content-send right"></i>
-        </button>
+        <a class="btn waves-effect waves-light submit">
+          Submit <i class="mdi-content-send right"></i>
+        </a>
       </form>
     </div>
   </div>
@@ -127,14 +135,12 @@
     </div>
   </footer>
 
-
   <!--  Scripts-->
   <script src="js/jquery-2.1.3.min.js"></script>
   <script src="js/jquery-hashchange.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
   <script src="js/main.js"></script>
-
 
   <script>
 
