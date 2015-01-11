@@ -107,6 +107,10 @@ $(document).ready(function() {
         $(window).scrollTop(0);
         $('div[role=page]').removeClass('selected');
         $('div[role=page]' + hash).addClass('selected');
+
+        if (destinationMap) {
+            google.maps.event.trigger(destinationMap, "resize");
+        }
     });
     $(window).hashchange();
 
@@ -203,6 +207,7 @@ $(document).ready(function() {
     var destinationMarker;
 
     var initializeMaps = function() {
+        console.log('initializeMaps!');
         var options = {
             zoom: 8,
             center: new google.maps.LatLng(-34.397, 150.644)
