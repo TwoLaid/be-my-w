@@ -51,9 +51,13 @@ var setValues = function(values) {
         else if(key === 'mirrorValues'){
             var vals = value.substring(1, value.length - 1).split(',');
             $('#leftMirrorX').val(vals[0]);
+            $('#leftMirrorTextX').text(vals[0] + '°');
             $('#leftMirrorY').val(vals[1]);
+            $('#leftMirrorTextY').text(vals[1] + '°');
             $('#rightMirrorX').val(vals[2]);
+            $('#rightMirrorTextX').text(vals[2] + '°');
             $('#rightMirrorY').val(vals[3]);
+            $('#rightMirrorTextY').text(vals[3] + '°');
         }
         else if(value !== 'off'){
             $('#' + value).prop('checked', true);                
