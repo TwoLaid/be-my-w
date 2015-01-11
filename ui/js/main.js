@@ -13,7 +13,7 @@
             if(action.indexOf('#!') == 0) {
                 action = action.slice(2);
                 var checked = $(':checked', form);
-                values[action] = checked.attr('id') || '';
+                values[action] = checked.attr('id') || 'off';
             }
         });
         return values;    
@@ -24,7 +24,9 @@
         $('input[type=checkbox]').prop('checked', false);
 
         $.each(values, function(key, value) {
-            $('#' + value).prop('checked', true);
+            if(value !== 'off'){
+                $('#' + value).prop('checked', true);                
+            }
         });
     }
 
