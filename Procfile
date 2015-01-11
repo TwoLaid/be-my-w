@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath api bemywife:app --log-file=- --debug --reload
+web: gunicorn --pythonpath api -k flask_sockets.worker bemywife:app --log-file=- --debug --reload

@@ -63,7 +63,7 @@ $(document).ready(function() {
 
     // User Management Logic
 
-    $('#loginform a.submit').click(function() {
+    function submit_login_form() {
         $.ajax({
             type: 'GET',
             url: 'http://be-my-wife.herokuapp.com/login/' + $('#loginform').find('#email').val(),
@@ -75,6 +75,14 @@ $(document).ready(function() {
                 $('#loginerror').show();
             }
         });
+    }
+
+    $('#loginform input').keydown(function(e) {
+        if (e.which == 13) submit_login_form();
+    });
+
+    $('#loginform a.submit').click(function() {
+        submit_login_form();
     });
 
     $('a.logout').click(function() {
