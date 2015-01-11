@@ -2,6 +2,7 @@ import os
 import urlparse
 import logging
 import json
+import threading
 
 from datetime import timedelta
 from functools import update_wrapper
@@ -117,7 +118,7 @@ def get_user_preferences(user_id):
 
     return preferences
 
-def send_car_destination(vin, destination, longitude, latitude):
+def send_car_destination(app, vin, destination, longitude, latitude):
     try:
         payload = {
             'label': destination,
@@ -152,7 +153,7 @@ def preferences(user_id):
     if request.method == 'POST':
         preferences = request.get_json(force=True)
 
-        dest, lon, lat = None, None, None
+        dest, lon, lat = '', '', ''
         for key, value in preferences.items():
             # if key not in PREF_KEYS:
             #     if 'warnings' not in result:
@@ -171,8 +172,9 @@ def preferences(user_id):
             cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
             cur.execute('INSERT INTO preferences VALUES (%s, %s, %s);', (user_id, key, value))
 
-        if all([v is not None for v in (dest, lon, lat)]):
-            send_car_destination(REAL_CAR, dest, lon, lat)
+        if all([len(v) > 1 for v in (dest, lon, lat)]):
+            t = threading.Thread(target=send_car_destination, args=(app, REAL_CAR, dest, lon, lat), kwargs={})
+            t.start()
 
         result = {'userid':  user_id}
         pgconn.commit()
