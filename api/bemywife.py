@@ -46,3 +46,7 @@ def initpg():
     cur.execute('CREATE TABLE preferences (ID INT NOT NULL, "KEY" VARCHAR(50), "VALUE" TEXT);')
 
     return ""
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
