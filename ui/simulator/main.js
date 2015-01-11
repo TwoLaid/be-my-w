@@ -17,6 +17,11 @@ var modeTranslations = {
 		'driveSport': 'Sports Mode',
 		'driveEco': 'Eco Mode',
 		'driveEco2': 'Eco+ Mode'
+	}, seatHeater: {
+		'seatHeater0': 'Off',
+		'seatHeater1': 'Low',
+		'seatHeater2': 'Med',
+		'seatHeater3': 'Hi'
 	}
 };
 
@@ -55,7 +60,7 @@ $(document).ready(function() {
 				setTemperature($('.seat-temperature-driver'), parseInt(pref[key]));
 			} else if (key == 'temperature') {
 				setTemperature($('#ac-temperature'), parseInt(pref[key]));
-			} else if (key == 'seat_position_driver') {
+			} else if (key == 'seat_position_driver' || key == 'seatPosition') {
 				$('#seat-position-driver').val(parseInt(pref[key]));
 			} else if (key == 'sideview_mirror_left') {
 				$('#sideview-mirror-left').css('transform', 'rotate('+pref[key]+'deg)');
@@ -103,6 +108,19 @@ $(document).ready(function() {
 				$('#left-mirror-y span').text(vals[1] + '°');
 				$('#right-mirror-x span').text(vals[2] + '°');
 				$('#right-mirror-y span').text(vals[3] + '°');
+			} else if (key == 'seatHeater') {
+				var val = pref[key];
+				var text = modeTranslations[key][val] || val;
+				$('.seat-temperature-driver').text(text);
+				if (val == 'seatHeater3') {
+					$('.seat-temperature-driver').css('border-color', 'hsla(0, 100%, 50%, 1)');
+				} else if (val == 'seatHeater2') {
+					$('.seat-temperature-driver').css('border-color', 'hsla(28, 100%, 50%, 1)');
+				} else if (val == 'seatHeater1') {
+					$('.seat-temperature-driver').css('border-color', 'hsla(48, 100%, 50%, 1)');
+				} else if (val == 'seatHeater0') {
+					$('.seat-temperature-driver').css('border-color', 'black');
+				}
 			}
 		}
 	}
