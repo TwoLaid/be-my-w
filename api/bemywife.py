@@ -134,8 +134,8 @@ def preferences(user_id):
         return jsonify(result)
 
     if request.method == 'POST':
-        result = request.get_json(force=True)
-        for key, value in result.items():
+        preferences = request.get_json(force=True)
+        for key, value in preferences.items():
             # if key not in PREF_KEYS:
             #     if 'warnings' not in result:
             #         result['warnings'] = []

@@ -45,6 +45,15 @@ var postPreferences = function(preferences){
       data: JSON.stringify(preferences),
       dataType: 'json'
     });
+};
+
+var getPreferences = function(){
+    $.ajax({
+        url: 'http://be-my-wife.herokuapp.com/preferences/' + getUserId(),
+        success: function(result){
+            setValues(result.preferences);
+        }
+    });
 }
 
 $(document).ready(function() {
@@ -113,5 +122,10 @@ $(document).ready(function() {
     }
     check_for_signed_in_user();
 
-    $("form").change(getValues);
+    $("form").change(function(){
+        var preferences = getValues();
+        postPreferences(preferences);
+    });
+
+    getPreferences();
 });
