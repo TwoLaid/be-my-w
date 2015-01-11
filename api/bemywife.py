@@ -135,8 +135,13 @@ def preferences(user_id):
 
     if request.method == 'POST':
         result = {'userid': user_id}
+        data = ''
         for key in request.form:
-            value = request.form[key]
+            data = key
+            break
+        prefs = json.loads(data)
+        for key in prefs:
+            value = prefs[key]
 
             # if key not in PREF_KEYS:
             #     if 'warnings' not in result:
