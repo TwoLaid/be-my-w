@@ -145,7 +145,7 @@ def preferences(user_id):
             # no UPSERT in postgres :(
             cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
             cur.execute('INSERT INTO preferences VALUES (%s, %s, %s);', (user_id, key, value))
-        result['userid'] = user_id
+        result = {'userid':  user_id}
         pgconn.commit()
         result['preferences'] = get_user_preferences(user_id)
         return jsonify(result)
