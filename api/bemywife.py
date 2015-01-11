@@ -138,11 +138,11 @@ def preferences(user_id):
         for key in request.form:
             value = request.form[key]
 
-            if key not in PREF_KEYS:
-                if 'warnings' not in result:
-                    result['warnings'] = []
-                result['warnings'].append('Invalid key: %s' % key)
-                continue
+            # if key not in PREF_KEYS:
+            #     if 'warnings' not in result:
+            #         result['warnings'] = []
+            #     result['warnings'].append('Invalid key: %s' % key)
+            #     continue
 
             # no UPSERT in postgres :(
             cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
