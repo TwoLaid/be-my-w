@@ -6,6 +6,18 @@
  * Made By MaterializeCSS.com
  */
 
+body, html {
+  height: 100%;
+}
+
+div[role=page] {
+  display: none;
+  min-height: calc(100% - 64px - 90px);
+}
+div[role=page].selected {
+  display: block;
+}
+
 .icon-block {
   padding: 0 15px;
 }
@@ -16,6 +28,18 @@
   text-transform: uppercase;
 }
 
-#logo-container {
-  text-transform: none
+#logo-container i {
+  text-transform: none;
+}
+
+#logo-container em, h1 em, h2 em, h3 em, h4 em, h5 em, h6 em {
+  text-transform: none;
+  font-weight: 600;
+}
+
+.container {
+  padding-top: 30px;
+}
+nav .container, footer .container {
+  padding-top: 0;
 }
