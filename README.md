@@ -1,5 +1,5 @@
 ###Name your team
-BeMyDrive
+BeMyW
 
 ###Please list your Team Members
 
@@ -9,7 +9,7 @@ BeMyDrive
 
 
 ###Please provide a short description of your application
-Vision: In five years from now fewer and fewer people own a car but use carsharing services like DriveNow instead.
+In five years from now fewer and fewer people own a car but use carsharing services like DriveNow instead.
 
 With `BeMyW` every shared BMW becomes your BMW. When you arrive at the car the driver seat and mirrors are already adjusted, your radio stations are configured and your destination is shown in the navigation system. Get in, press start and enjoy the ride!
 
