@@ -1,6 +1,11 @@
 
+body {
+    font-family: HelveticaNeue, Helvetica, sans-serif;
+}
+
 #car {
-    
+    float: left;
+    overflow: auto;
 }
 
 #blueprint {
@@ -9,6 +14,21 @@
     height: 380px;
     /*background: url('img/blueprint_i3.png');*/
     background-size: contain;
+}
+
+#other-info {
+    float: left;
+    margin-left: 2em;
+}
+
+.info-group {
+    display: none;
+}
+.info-group h3 {
+    margin: 0;
+}
+.info-group p {
+    margin: 0;
 }
 
 .temperature {
@@ -29,22 +49,22 @@
 
 .seat-temperature-driver {
     position: absolute;
-    top: 102px;
-    left: 400px;
+    top: 220px;
+    left: 379px;
 }
 .seat-temperature-passenger {
     position: absolute;
-    top: 220px;
+    top: 102px;
     left: 400px;
 }
 .seat-position-driver {
     position: absolute;
-    top: 85px;
+    top: 280px;
     left: 343px;
 }
 .seat-position-driver-label {
     position: absolute;
-    top: 70px;
+    top: 298px;
     left: 370px;
     background: white;
 }
@@ -53,6 +73,26 @@
     position: absolute;
     left: 450px;
     top: 150px;
+}
+
+.sideview-mirror {
+    width: 50px;
+    height: 5px;
+    background: black;
+    transform: rotate(0deg);
+    transform-origin: 0% 0%;
+}
+
+#sideview-mirror-left {
+    position: absolute;
+    left: 273px;
+    top: 343px;
+}
+
+#sideview-mirror-right {
+    position: absolute;
+    left: 273px;
+    top: 37px;
 }
 
 .overlay {

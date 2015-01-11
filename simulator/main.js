@@ -28,6 +28,8 @@ $(document).ready(function() {
 	function applyDefaults() {
 		setTemperature($('.temperature'), null);
 		$('#car input[type="range"]').val(0);
+		$('.info-group').hide();
+		$('.sideview-mirror').css('transform', 'rotate(0deg)');
 	}
 
 	function applyPreferences(pref) {
@@ -36,6 +38,15 @@ $(document).ready(function() {
 				setTemperature($('.seat-temperature-driver'), parseInt(pref[key]));
 			} else if (key == 'temperature') {
 				setTemperature($('#ac-temperature'), parseInt(pref[key]));
+			} else if (key == 'seat_position_driver') {
+				$('#seat-position-driver').val(parseInt(pref[key]));
+			} else if (key == 'sideview_mirror_left') {
+				$('#sideview-mirror-left').css('transform', 'rotate('+pref[key]+'deg)');
+			} else if (key == 'sideview_mirror_right') {
+				$('#sideview-mirror-right').css('transform', 'rotate(-'+pref[key]+'deg)');
+			} else if (key == 'radio') {
+				$('#radio').show();
+				$('#radio p').text(pref[key]);
 			}
 		}
 	}
@@ -43,7 +54,11 @@ $(document).ready(function() {
 	applyDefaults();
 	applyPreferences({
 		temperate_seat_driver: '80',
-		temperature: '60'
+		temperature: '60',
+		radio: '98.5',
+		seat_position_driver: '3',
+		sideview_mirror_right: '41',
+		sideview_mirror_left: '41'
 	});
 
 });
