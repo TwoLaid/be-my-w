@@ -128,8 +128,8 @@ $(document).ready(function() {
     });
 
     var gauge = $("#tempGauge"),
-      gaugeText = $("#tempValue");
-    gauge.on("change", function(e){
+        gaugeText = $("#tempValue");
+    gauge.on("change", function(e) {
         var temperature = $("#tempGauge + span").text();
         gaugeText.text(temperature);
     });
