@@ -6,6 +6,15 @@
  * Made By MaterializeCSS.com
  */
 
+body, html {
+  height: 100%;
+}
+
+div[role=page] {
+  display: none;
+  min-height: calc(100% - 64px - 287px) 
+}
+
 .icon-block {
   padding: 0 15px;
 }
@@ -18,4 +27,11 @@
 
 #logo-container {
   text-transform: none
+}
+
+.container {
+  padding-top: 30px;
+}
+nav .container {
+  padding-top: 0;
 }
