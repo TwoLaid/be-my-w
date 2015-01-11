@@ -5970,11 +5970,11 @@ form p:last-child {
   margin-bottom: 0px; }
 
 /* Remove default checkbox */
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+.checkbox [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
   position: absolute;
   left: -9999px; }
 
-[type="checkbox"]:not(:checked) + label, [type="checkbox"]:checked + label {
+.checkbox [type="checkbox"]:not(:checked) + label, [type="checkbox"]:checked + label {
   position: relative;
   padding-left: 35px;
   cursor: pointer;
@@ -5992,7 +5992,7 @@ form p:last-child {
   /* IE10+ */ }
 
 /* checkbox aspect */
-[type="checkbox"] + label:before {
+.checkbox [type="checkbox"] + label:before {
   content: '';
   position: absolute;
   margin-top: 2px;
@@ -6009,14 +6009,14 @@ form p:last-child {
   transition: 0.2s; }
 
 /* Unchecked styles */
-[type="checkbox"]:not(:checked) + label:before {
+.checkbox [type="checkbox"]:not(:checked) + label:before {
   top: 0px;
   width: 18px;
   height: 18px;
   border: 2px solid #5a5a5a; }
 
 /* Checked styles */
-[type="checkbox"]:checked + label:before {
+.checkbox [type="checkbox"]:checked + label:before {
   left: -3px;
   top: -4px;
   width: 12px;
@@ -6038,7 +6038,7 @@ form p:last-child {
   transform-origin: 100% 100%; }
 
 /* disabled checkbox */
-[type="checkbox"]:disabled:not(:checked) + label:before, [type="checkbox"]:disabled:checked + label:before {
+.checkbox [type="checkbox"]:disabled:not(:checked) + label:before, .checkbox [type="checkbox"]:disabled:checked + label:before {
   top: 0;
   left: 0;
   box-shadow: none;
@@ -6052,10 +6052,10 @@ form p:last-child {
   -o-transform: rotateZ(0deg);
   transform: rotateZ(0deg); }
 
-[type="checkbox"]:disabled + label {
+.checkbox [type="checkbox"]:disabled + label {
   color: rgba(0, 0, 0, 0.26); }
 
-[type="checkbox"]:disabled:not(:checked) + label:hover:before {
+.checkbox [type="checkbox"]:disabled:not(:checked) + label:hover:before {
   border-color: rgba(0, 0, 0, 0.26); }
 
 /***************
