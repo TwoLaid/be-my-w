@@ -76,18 +76,12 @@ $(document).ready(function() {
         var forms = $('form');
 
         $.each(forms, function(i, form) {
-            if($(form).is('[slider]')) {
-                // console.debug('slider', form);
-                return;
-            }
-
-
+            if ($(form).is('[slider]')) return;
 
             var action = $(form).attr('action') || '';
             if(action.indexOf('#!') == 0) {
                 action = action.slice(2);
                 var checked = $(':checked', form);
-                // console.debug(action, checked.attr('id'));
                 values[action] = checked.attr('id') || '';
             }
         });
