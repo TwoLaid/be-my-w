@@ -101,6 +101,38 @@ body {
     transform-origin: 15px 40px;
 }
 
+#left-mirror-x {
+    position: absolute;
+    top: 300px;
+    left: 272px;
+}
+
+#left-mirror-y {
+    position: absolute;
+    top: 316px;
+    left: 281px;
+}
+
+#right-mirror-x {
+    position: absolute;
+    top: 48px;
+    left: 272px;    
+}
+
+#right-mirror-y {
+    position: absolute;
+    top: 64px;
+    left: 281px;
+}
+
+#sideview-mirror-left.left-mirror-folded {
+    transform: rotate(-40deg);
+}
+
+#sideview-mirror-right.right-mirror-folded {
+    transform: rotate(40deg);
+}
+
 .overlay {
     position: absolute;
     top: 0;

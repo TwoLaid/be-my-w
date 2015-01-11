@@ -46,6 +46,13 @@ var setValues = function(values) {
             $('#destination').attr('value', value).change();
             $('label[for="destination"]').addClass('active');
         }
+        else if(key === 'mirrorValues'){
+            var vals = value.substring(1, value.length - 1).split(',');
+            $('#leftMirrorX').val(vals[0]);
+            $('#leftMirrorY').val(vals[1]);
+            $('#rightMirrorX').val(vals[2]);
+            $('#rightMirrorY').val(vals[3]);
+        }
         else if(value !== 'off'){
             $('#' + value).prop('checked', true);                
         }

@@ -43,7 +43,8 @@ $(document).ready(function() {
 		setTemperature($('.temperature'), null);
 		$('#car input[type="range"]').val(0);
 		$('.info-group').hide();
-		$('.sideview-mirror').css('transform', 'rotate(0deg)');
+		$('#sideview-mirror-left').removeClass('left-mirror-folded');
+		$('#sideview-mirror-right').removeClass('right-mirror-folded');
 	}
 
 	function applyPreferences(pref) {
@@ -59,7 +60,13 @@ $(document).ready(function() {
 			} else if (key == 'sideview_mirror_right') {
 				$('#sideview-mirror-right').css('transform', 'rotate(-'+pref[key]+'deg)');
 			} else if (key == 'sideMirror') {
-				//
+				if (pref[key] == 'off') {
+					$('#sideview-mirror-left').removeClass('left-mirror-folded');
+					$('#sideview-mirror-right').removeClass('right-mirror-folded');
+				} else {
+					$('#sideview-mirror-left').addClass('left-mirror-folded');
+					$('#sideview-mirror-right').addClass('right-mirror-folded');
+				}
 			} else if (key == 'radio') {
 				$('#radio').show();
 				$('#radio p').text(pref[key] + ' FM');
@@ -80,6 +87,20 @@ $(document).ready(function() {
 				$('#break-mode p').text(text);
 			} else if (key == 'username') {
 				$('#current-user').text(pref[key]);
+			} else if (key == 'leftMirrorX') {
+				$('#left-mirror-x span').text(pref[key] + '°');
+			} else if (key == 'rightMirrorY') {
+				$('#left-mirror-y span').text(pref[key] + '°');
+			} else if (key == 'rightMirrorX') {
+				$('#right-mirror-x span').text(pref[key] + '°');
+			} else if (key == 'rightMirrorY') {
+				$('#right-mirror-y span').text(pref[key] + '°');
+			} else if (key == 'mirrorValues') {
+				var vals = pref[key].substring(1, pref[key].length - 1).split(',');
+				$('#left-mirror-x span').text(vals[0] + '°');
+				$('#left-mirror-y span').text(vals[1] + '°');
+				$('#right-mirror-x span').text(vals[2] + '°');
+				$('#right-mirror-y span').text(vals[3] + '°');
 			}
 		}
 	}
@@ -90,8 +111,8 @@ $(document).ready(function() {
 		temperature: '60',
 		radio: '98.5',
 		seat_position_driver: '3',
-		sideview_mirror_right: '41',
-		sideview_mirror_left: '41',
+		/*sideview_mirror_right: '41',
+		sideview_mirror_left: '41',*/
 		destination: 'Petuelring 130, Munich, Germany',
 		ecoMode: 'driveSport',
 		creepMode: 'creepOn',
