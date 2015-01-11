@@ -1,52 +1,3 @@
-var getUserId = function(){
-    return localStorage.getItem("user_id");
-}
-
-var getValues = function(){
-    var values = {};    
-    var forms = $("form");
-
-    $.each(forms, function(i, form){
-        if($(form).is('[slider]')){
-            // console.debug('slider', form);
-            return;
-        }
-
-
-
-        var action = $(form).attr('action') || '';
-        if(action.indexOf('#!') == 0){
-            action = action.slice(2);
-            var checked = $(":checked", form);
-            // console.debug(action, checked.attr('id'));
-            values[action] = checked.attr('id') || '';
-        }
-    });
-    return values;    
-};
-
-var setValues = function(values){
-    $("input[type='radio']").prop('checked', false);
-    $("input[type='checkbox']").prop('checked', false);
-
-    $.each(values, function(key, value){
-        $("#" + value).prop("checked", true);
-    });
-
-}
-
-var postPreferences = function(preferences){
-    var user = getUserId();
-    var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
-
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: JSON.stringify(preferences),
-      dataType: 'json'
-    });
-}
-
 $(document).ready(function() {
     
     // Routing Logic
@@ -64,13 +15,13 @@ $(document).ready(function() {
 
     // User Management Logic
 
-    function submit_login_form() {
+    var submitLoginForm = function() {
         $.ajax({
             type: 'GET',
             url: 'http://be-my-wife.herokuapp.com/login/' + $('#loginform').find('#email').val(),
             success: function(data) {
                 $('#loginerror').hide();
-                login_user(data.userid);
+                loginUser(data.userid);
             },
             error: function() {
                 $('#loginerror').show();
@@ -78,12 +29,33 @@ $(document).ready(function() {
         });
     }
 
+    var adaptPageToLoggedInUser = function(user_id) {
+        $('.loggedout').hide();
+        $('.loggedin').show();
+    }
+
+    var loginUser = function(user_id) {
+        localStorage.setItem('user_id', user_id);
+        adaptPageToLoggedInUser(user_id);
+        window.location.hash = '#main';
+    }
+
+    var checkForSignedInUser = function() {
+        user_id = localStorage.getItem('user_id');
+        if (user_id != null) {
+            adaptPageToLoggedInUser(user_id)
+        } else {
+            $('.loggedin').hide(); 
+        }
+    }
+    checkForSignedInUser();
+
     $('#loginform input').keydown(function(e) {
-        if (e.which == 13) submit_login_form();
+        if (e.which == 13) submitLoginForm();
     });
 
     $('#loginform a.submit').click(function() {
-        submit_login_form();
+        submitLoginForm();
     });
 
     $('a.logout').click(function() {
@@ -92,26 +64,71 @@ $(document).ready(function() {
         $('.loggedin').hide();
     });
 
-    function adapt_page_to_logged_in_user(user_id) {
-        $('.loggedout').hide();
-        $('.loggedin').show();
+
+    // Driving Options Management
+
+    var getUserId = function() {
+        return localStorage.getItem('user_id');
     }
 
-    function login_user(user_id) {
-        localStorage.setItem('user_id', user_id);
-        adapt_page_to_logged_in_user(user_id);
-        window.location.hash = '#main';
+    var getValues = function() {
+        var values = {};    
+        var forms = $('form');
+
+        $.each(forms, function(i, form) {
+            if($(form).is('[slider]')) {
+                // console.debug('slider', form);
+                return;
+            }
+
+
+
+            var action = $(form).attr('action') || '';
+            if(action.indexOf('#!') == 0) {
+                action = action.slice(2);
+                var checked = $(':checked', form);
+                // console.debug(action, checked.attr('id'));
+                values[action] = checked.attr('id') || '';
+            }
+        });
+        return values;    
+    };
+
+    var setValues = function(values) {
+        $('input[type=radio]').prop('checked', false);
+        $('input[type=checkbox]').prop('checked', false);
+
+        $.each(values, function(key, value) {
+            $('#' + value).prop('checked', true);
+        });
+
     }
 
-    function check_for_signed_in_user() {
-        user_id = localStorage.getItem('user_id');
-        if (user_id != null) {
-            adapt_page_to_logged_in_user(user_id)
-        } else {
-            $('.loggedin').hide(); 
-        }
-    }
-    check_for_signed_in_user();
+    var postPreferences = function(preferences) {
+        var user = getUserId();
+        var url = 'http://be-my-wife.herokuapp.com/preferences/' + user, preferences;
 
-    $("form").change(getValues);
+        $.ajax({
+          type: 'POST',
+          url: url,
+          data: JSON.stringify(preferences),
+          dataType: 'json'
+        });
+    };
+
+    var getPreferences = function() {
+        $.ajax({
+            url: 'http://be-my-wife.herokuapp.com/preferences/' + getUserId(),
+            success: function(result) {
+                setValues(result.preferences);
+            }
+        });
+    }
+
+    $('form').change(function() {
+        var preferences = getValues();
+        postPreferences(preferences);
+    });
+
+    getPreferences();
 });

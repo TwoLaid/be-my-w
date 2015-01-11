@@ -134,8 +134,8 @@ def preferences(user_id):
         return jsonify(result)
 
     if request.method == 'POST':
-        result = request.get_json(force=True)
-        for key, value in result.items():
+        preferences = request.get_json(force=True)
+        for key, value in preferences.items():
             # if key not in PREF_KEYS:
             #     if 'warnings' not in result:
             #         result['warnings'] = []
@@ -145,7 +145,7 @@ def preferences(user_id):
             # no UPSERT in postgres :(
             cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
             cur.execute('INSERT INTO preferences VALUES (%s, %s, %s);', (user_id, key, value))
-        result['userid'] = user_id
+        result = {'userid':  user_id}
         pgconn.commit()
         result['preferences'] = get_user_preferences(user_id)
         return jsonify(result)
