@@ -45,6 +45,11 @@ var getValues = function() {
             var checked = $(':checked', form);
             values[action] = checked.attr('id') || 'off';
         }
+
+        if ($(form).attr("id") === 'destinationForm') {
+            values['destination_lon'] = $('#destination_lon').val();
+            values['destination_lat'] = $('#destination_lat').val();
+        }
     });
     return values;    
 };
@@ -251,6 +256,8 @@ $(document).ready(function() {
                 destinationMarker = new google.maps.Marker({map: destinationMap, position: results[0].geometry.location});
 
                 $('#destination').val(results[0].formatted_address);
+                $('#destination_lon').val(results[0].geometry.location.lng());
+                $('#destination_lat').val(results[0].geometry.location.lat());
 
                 if (callback) {
                     callback();

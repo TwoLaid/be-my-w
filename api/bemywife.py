@@ -8,6 +8,7 @@ from functools import update_wrapper
 
 import psycopg2
 import gevent
+import requests
 
 from flask import Flask, abort, jsonify, request, make_response, current_app, Response
 from flask_sockets import Sockets
@@ -26,6 +27,8 @@ pgconn = psycopg2.connect(
     port=url.port
 )
 
+API_URL = 'http://api.hackthedrive.com'
+REAL_CAR = 'WBY1Z4C55EV273078'
 virtual_cars = []
 
 # List of valid preferences keys
@@ -114,6 +117,18 @@ def get_user_preferences(user_id):
 
     return preferences
 
+def send_car_destination(vin, destination, longitude, latitude):
+    try:
+        payload = {
+            'label': destination,
+            'lat': float(latitude),
+            'lon': float(longitude)
+        };
+        r = requests.post('%s/vehicles/%s/navigation/' % (API_URL, vin), json=payload)
+        app.logger.info(r.text)
+    except Exception, e:
+        app.logger.warning(e)
+
 @app.route('/preferences/<int:user_id>', methods=['GET', 'POST'])
 @crossdomain(origin='*')
 def preferences(user_id):
@@ -135,6 +150,8 @@ def preferences(user_id):
 
     if request.method == 'POST':
         preferences = request.get_json(force=True)
+
+        dest, lon, lat = None, None, None
         for key, value in preferences.items():
             # if key not in PREF_KEYS:
             #     if 'warnings' not in result:
@@ -142,9 +159,26 @@ def preferences(user_id):
             #     result['warnings'].append('Invalid key: %s' % key)
             #     continue
 
+            if key == 'destination':
+                dest = value
+            elif key == 'destination_lon':
+                lon = value
+            elif key == 'destination_lat':
+                lat = value
+
+            app.logger.info(key)
+
             # no UPSERT in postgres :(
             cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
             cur.execute('INSERT INTO preferences VALUES (%s, %s, %s);', (user_id, key, value))
+
+        app.logger.info(dest)
+        app.logger.info(lon)
+        app.logger.info(lat)
+
+        if all([v is not None for v in (dest, lon, lat)]):
+            send_car_destination(REAL_CAR, dest, lon, lat)
+
         result = {'userid':  user_id}
         pgconn.commit()
         result['preferences'] = get_user_preferences(user_id)
