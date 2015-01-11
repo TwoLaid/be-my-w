@@ -94,6 +94,7 @@ def preferences(user_id):
                 result['warnings'].append('Invalid key: %s' % key)
                 continue
 
+            # no UPSERT in postgres :(
             cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
             cur.execute('INSERT INTO preferences VALUES (%s, %s, %s);', (user_id, key, value))
 
@@ -103,6 +104,10 @@ def preferences(user_id):
 
     abort(500)
 
+@app.route('/preferences/<int:user_id>/apply/<int:vin>')
+def apply_preferences(user_id, vin):
+    '''Apply user preferences to target car'''
+    return 'Not implemented yet.'
 
 if __name__ == '__main__':
     app.run(debug=True)
