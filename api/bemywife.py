@@ -29,7 +29,8 @@ pgconn = psycopg2.connect(
 )
 
 API_URL = 'http://api.hackthedrive.com'
-REAL_CAR = 'WBY1Z4C55EV273078'
+# REAL_CAR = 'WBY1Z4C55EV273078'
+REAL_CAR = 'WBY1Z4C51EV275894'
 virtual_cars = []
 
 # List of valid preferences keys
