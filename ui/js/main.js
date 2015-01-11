@@ -182,7 +182,8 @@ $(document).ready(function() {
             tid = gid.slice(0, -1) + 'Text' + gid.slice(-1);
         $("#" + tid).text(angle + '°');
     });
-    
+
+
     // Destination / Google Maps
 
     var destinationMap;
