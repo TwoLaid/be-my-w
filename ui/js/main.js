@@ -43,6 +43,7 @@ var postPreferences = function(preferences){
       type: "POST",
       url: url,
       data: JSON.stringify(preferences),
+      dataType: 'json'
     });
 }
 
