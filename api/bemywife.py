@@ -4,7 +4,7 @@ import logging
 
 import psycopg2
 
-from flask import Flask
+from flask import Flask, abort, jsonify, request
 
 app = Flask(__name__)
 
@@ -19,12 +19,15 @@ pgconn = psycopg2.connect(
     port=url.port
 )
 
+# List of valid preferences keys
+PREF_KEYS = ('temperature', 'target_address', 'seat_position', 'radio', 'sideview_mirror_left', 'sideview_mirror_right', 'rearview_mirror')
+
 @app.before_first_request
 def setup_logging():
     if not app.debug:
         # In production mode, add log handler to sys.stderr.
         app.logger.addHandler(logging.StreamHandler())
-        app.logger.setLevel(logging.INFO)
+        app.logger.setLevel(logging.DEBUG)
 
 @app.route('/')
 def index():
@@ -33,20 +36,78 @@ def index():
 @app.route('/login/<username>')
 def login(username):
     cur = pgconn.cursor()
-    cur.execute('select * from information_schema.tables')
-    app.logger.info(cur.fetchone())
+    # Check if user id exists
+    cur.execute('SELECT ID FROM USERS WHERE USERNAME = %s', (username,))    
+    row = cur.fetchone()
+    if row is None:
+        abort(404)
 
-    return 'hi, ' + username
+    app.logger.info(row)
 
-@app.route('/initpg')
-def initpg():
+    return jsonify({'userid': row[0]})
+
+def get_user_preferences(user_id):
+    cur = pgconn.cursor()
+    cur.execute('SELECT "KEY", "VALUE" FROM preferences WHERE ID = %s', (user_id,))
+    rows = cur.fetchall()
+
+    preferences = {}
+
+    for row in rows:
+        key, value = row
+        if key not in PREF_KEYS:
+            app.logger.debug('Invalid preferences key: %s' % key)
+            continue
+
+        preferences[key] = value
+
+    return preferences
+
+@app.route('/preferences/<int:user_id>', methods=['GET', 'POST'])
+def preferences(user_id):
+    '''Return or edit preferences of the user'''
     cur = pgconn.cursor()
 
-    cur.execute('CREATE TABLE users ( ID INT PRIMARY KEY NOT NULL, USERNAME VARCHAR(50) NOT NULL, FULLNAME VARCHAR(100) NOT NULL );')
-    cur.execute('CREATE TABLE preferences (USERID INT NOT NULL, "KEY" VARCHAR(50), "VALUE" TEXT);')
+    # Check if user id exists
+    cur.execute('SELECT ID FROM USERS WHERE ID = %s', (user_id,))
+    row = cur.fetchone()
 
-    return ""
+    if row is None:
+        abort(404)
 
+    if request.method == 'GET':
+        result = {'userid': user_id}
+        result['preferences'] = get_user_preferences(user_id)
+
+        app.logger.info(get_user_preferences(user_id)   )
+
+        return jsonify(result)
+
+    if request.method == 'POST':
+        result = {'userid': user_id}
+        for key in request.form:
+            value = request.form[key]
+
+            if key not in PREF_KEYS:
+                if 'warnings' not in result:
+                    result['warnings'] = []
+                result['warnings'].append('Invalid key: %s' % key)
+                continue
+
+            # no UPSERT in postgres :(
+            cur.execute('DELETE FROM preferences WHERE ID = %s AND "KEY" = %s;', (user_id, key))
+            cur.execute('INSERT INTO preferences VALUES (%s, %s, %s);', (user_id, key, value))
+
+        pgconn.commit()
+        result['preferences'] = get_user_preferences(user_id)
+        return jsonify(result)
+
+    abort(500)
+
+@app.route('/preferences/<int:user_id>/apply/<int:vin>')
+def apply_preferences(user_id, vin):
+    '''Apply user preferences to target car'''
+    return 'Not implemented yet.'
 
 if __name__ == '__main__':
     app.run(debug=True)

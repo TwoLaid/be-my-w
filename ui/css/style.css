@@ -6,16 +6,26 @@
  * Made By MaterializeCSS.com
  */
 
+body, html {
+  height: 100%;
+}
+
+div[role=page] {
+  display: none;
+  min-height: calc(100% - 64px - 287px) 
+}
+
 .icon-block {
   padding: 0 15px;
 }
 
 #logo-container {
-	font-family: "HelveticaNeueBold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-	font-weight:600;
-	text-transform: uppercase;
+  font-family: "HelveticaNeueBold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
+<<<<<<< HEAD
 #logo-container i {
 	text-transform: none;
 }
@@ -24,4 +34,10 @@
 	text-transform: none;
 	font-weight: 600;
 
+
+.container {
+  padding-top: 30px;
+}
+nav .container {
+  padding-top: 0;
 }
