@@ -12,7 +12,10 @@ body, html {
 
 div[role=page] {
   display: none;
-  min-height: calc(100% - 64px - 287px) 
+  min-height: calc(100% - 64px - 90px) 
+}
+div[role=page].selected {
+  display: block;
 }
 
 .icon-block {
