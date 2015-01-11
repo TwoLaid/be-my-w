@@ -100,9 +100,9 @@ def get_user_preferences(user_id):
 
     for row in rows:
         key, value = row
-        if key not in PREF_KEYS:
-            app.logger.debug('Invalid preferences key: %s' % key)
-            continue
+        # if key not in PREF_KEYS:
+        #     app.logger.debug('Invalid preferences key: %s' % key)
+        #     continue
 
         preferences[key] = value
 
