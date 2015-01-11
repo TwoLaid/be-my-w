@@ -127,5 +127,12 @@ $(document).ready(function() {
         postPreferences(preferences);
     });
 
+    var gauge = $("#tempGauge"),
+      gaugeText = $("#tempValue");
+    gauge.on("change", function(e){
+        var temperature = $("#tempGauge + span").text();
+        gaugeText.text(temperature);
+    });
+
     getPreferences();
 });
