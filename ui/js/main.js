@@ -1,5 +1,14 @@
 API_HOST = location.host;
 
+var setTemperature = function(temperature){
+    var gauge = $('#tempGauge'),
+    gaugeText = $('#tempValue'),
+    gaugeCText = $('#tempCValue');
+    gaugeText.text(temperature);
+    gaugeCText.text(Math.round((temperature - 32) * (5 / 9)));
+    update();
+};
+
 var getUserId = function() {
     return localStorage.getItem('user_id');
 };
@@ -42,7 +51,9 @@ var setValues = function(values) {
 
     $.each(values, function(key, value) {
         if (key === 'temperature'){
-            $('#tempGauge').val(value).trigger('change');
+            console.debug(key, value);
+            $('#tempGauge').val(value);
+            setTemperature(value);
         }
         else if(key === 'destination'){
             $('#destination').attr('value', value).change();
@@ -185,11 +196,7 @@ $(document).ready(function() {
         gaugeText = $('#tempValue'),
         gaugeCText = $('#tempCValue');
 
-    var setTemperature = function(temperature){
-        gaugeText.text(temperature);
-        gaugeCText.text(Math.round((temperature - 32) * (5 / 9)));
-        update();
-    };
+
 
     gauge.change(function(e) {
         var temperature = $('#tempGauge').val();
