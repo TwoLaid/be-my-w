@@ -4,6 +4,20 @@ Number.prototype.map = function ( in_min , in_max , out_min , out_max ) {
 
 var temperature_scale = [240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255,/* 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269, 270,*/ 340, 341, 342, 343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360];
 
+var modeTranslations = {
+	creepMode: {
+		'creepOn': 'Enabled',
+		'creepOff': 'Disabled'
+	}, breakMode: {
+		'breakHigh': 'High Breaks',
+		'breakMedium': 'Medium Breaks'
+	}, ecoMode: {
+		'driveSport': 'Sports Mode',
+		'driveEco': 'Eco Mode',
+		'driveEco2': 'Eco+ Mode'
+	}
+};
+
 $(document).ready(function() {
 
 	function setTemperature($nodes, value) {
@@ -48,9 +62,18 @@ $(document).ready(function() {
 			} else if (key == 'destination') {
 				$('#destination').show();
 				$('#destination p').text(pref[key]);
-			} else if (key == 'driving_mode') {
+			} else if (key == 'ecoMode') {
 				$('#driving-mode').show();
-				$('#driving-mode p').text(pref[key]);
+				var text = modeTranslations[key][pref[key]] || pref[key];
+				$('#driving-mode p').text(text);
+			} else if (key == 'creepMode') {
+				$('#creep-mode').show();
+				var text = modeTranslations[key][pref[key]] || pref[key];
+				$('#creep-mode p').text(text);
+			} else if (key == 'breakMode') {
+				$('#break-mode').show();
+				var text = modeTranslations[key][pref[key]] || pref[key];
+				$('#break-mode p').text(text);
 			}
 		}
 	}
@@ -64,7 +87,9 @@ $(document).ready(function() {
 		sideview_mirror_right: '41',
 		sideview_mirror_left: '41',
 		destination: 'Petuelring 130, Munich, Germany',
-		driving_mode: 'Sports Mode'
+		ecoMode: 'driveSport',
+		creepMode: 'creepOn',
+		breakMode: 'breakHigh'
 	});
 
 
