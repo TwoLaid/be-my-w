@@ -142,6 +142,7 @@ $(document).ready(function() {
     $('form').change(update);
 
     var gauge = $("#tempGauge"),
+
       gaugeText = $("#tempValue"),
       gaugeCText = $("#tempCValue");
 
