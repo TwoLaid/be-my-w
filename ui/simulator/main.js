@@ -26,7 +26,7 @@ $(document).ready(function() {
 		var color;
 
 		if (value != null) {
-			var hue = Math.floor(value.map(30, 100, 0, temperature_scale.length));
+			var hue = Math.floor(value.map(40, 100, 0, temperature_scale.length));
 			color = 'hsl(' + temperature_scale[hue] + ', 70%, 50%)';
 		}
 
@@ -58,6 +58,8 @@ $(document).ready(function() {
 				$('#sideview-mirror-left').css('transform', 'rotate('+pref[key]+'deg)');
 			} else if (key == 'sideview_mirror_right') {
 				$('#sideview-mirror-right').css('transform', 'rotate(-'+pref[key]+'deg)');
+			} else if (key == 'sideMirror') {
+				//
 			} else if (key == 'radio') {
 				$('#radio').show();
 				$('#radio p').text(pref[key] + ' FM');

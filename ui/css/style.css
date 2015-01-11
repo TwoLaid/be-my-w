@@ -110,3 +110,7 @@ input[type=checkbox].switch {
   display: none;
   margin-bottom: 30px;
 }
+
+#destinationMap {
+  height: 500px;
+}

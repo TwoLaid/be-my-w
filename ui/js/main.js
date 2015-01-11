@@ -134,5 +134,41 @@ $(document).ready(function() {
         gaugeText.text(temperature);
     });
 
+    
+    // Destination / Google Maps
+
+    var destinationMap;
+    var destinationMarker;
+
+    function initializeMaps() {
+        var options = {
+            zoom: 8,
+            center: new google.maps.LatLng(-34.397, 150.644)
+        };
+        destinationMap = new google.maps.Map(document.getElementById('destinationMap'), options);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initializeMaps);
+
+    $('#destinationForm').submit(function(e) {
+        e.preventDefault();
+
+        var geocoder = new google.maps.Geocoder();
+        var address = $('#destination').val();
+        geocoder.geocode({ 'address': address}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                destinationMap.setCenter(results[0].geometry.location);
+                if (destinationMarker) {
+                    destinationMarker.setMap(null);
+                    destinationMarker = null;
+                }
+                destinationMarker = new google.maps.Marker({map: destinationMap, position: results[0].geometry.location});
+
+                $('#destination').val(results[0].formatted_address);
+            }
+        });
+
+    });
+
     getPreferences();
 });
