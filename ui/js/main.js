@@ -123,7 +123,7 @@ $(document).ready(function() {
     // Hide Nav on Click
 
     $('#nav-mobile li').click( function() {
-        slideInNav();
+        removeMenu();
     });
     
     // Routing Logic
