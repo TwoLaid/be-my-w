@@ -102,3 +102,7 @@ def preferences(user_id):
         return jsonify(result)
 
     abort(500)
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
