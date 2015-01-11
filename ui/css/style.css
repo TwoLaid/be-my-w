@@ -18,6 +18,10 @@ div[role=page].selected {
   display: block;
 }
 
+#main {
+  padding: 10px 0 30px 0;
+}
+
 .icon-block {
   padding: 0 15px;
 }
