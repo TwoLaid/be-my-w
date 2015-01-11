@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
     // Routing Logic
     $(window).hashchange(function() {
         var hash = location.hash;
