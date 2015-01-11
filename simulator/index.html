@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>BMW Virtual Car</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<h1>Timo is using the car</h1>
+
+<div id="car">
+    <div id="blueprint">
+        <img src="img/blueprint_i3.png" class="overlay">
+        
+        <div class="temperature seat-temperature-driver" title="Driver Seat Temperature">70°F</div>
+        <!-- <div class="seat-temperature seat-temperature-passenger">80°F</div> -->
+        
+        <label for="seat-position-driver" class="seat-position-driver-label">Seat Position</label>
+        <input type="range" class="seat-position-driver" id="seat-position-driver" min="-8" max="8" value="0">
+
+        <div class="temperature temperature-big" id="ac-temperature" title="Global AC Temperature"></div>
+
+        <div id="sideview-mirror-left" class="sideview-mirror"></div>
+        <div id="sideview-mirror-right" class="sideview-mirror"></div>
+    </div>
+</div>
+<div id="other-info">
+    <div class="info-group" id="radio">
+        <h3><i class="fa fa-music"></i> Radio</h3>
+        <p>98.5</p>
+    </div>
+    <div class="info-group" id="destination">
+        <h3><i class="fa fa-location-arrow"></i> Destination</h3>
+        <p></p>
+    </div>   
+    <div class="info-group" id="driving-mode">
+        <h3><i class="fa fa-shopping-cart"></i> Driving Mode</h3>
+        <p></p>
+    </div>    
+</div>
+
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>

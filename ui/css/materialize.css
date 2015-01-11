@@ -4926,9 +4926,10 @@ html {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "HelveticaNeueBold", "HelveticaNeue-Bold", "Helvetica Neue Bold", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
-  font-weight:600;
-  font-stretch:normal;
-  text-transform: uppercase;}
+  font-weight: 600;
+  font-stretch: normal;
+  text-transform: uppercase;
+}
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
   font-weight: inherit; }
