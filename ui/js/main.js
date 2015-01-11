@@ -52,6 +52,10 @@ var setValues = function(values) {
             $('#leftMirrorY').val(vals[1]);
             $('#rightMirrorX').val(vals[2]);
             $('#rightMirrorY').val(vals[3]);
+            $("#mirrorForm input").trigger("change");
+        } else if (key === 'seatPosition') {
+            var seatPosition = $("#seatPosition").val(value);
+            $("#seatPositionText").text(value);
         }
         else if(value !== 'off'){
             $('#' + value).prop('checked', true);                
@@ -190,6 +194,12 @@ $(document).ready(function() {
         $("#" + tid).text(angle + '°');
     });
 
+    var seatPosition = $("#seatPosition"),
+        seatPositionText = $("#seatPositionText");
+
+    seatPosition.change(function(){
+        seatPositionText.text(seatPosition.val());
+    });
 
     // Destination / Google Maps
 
