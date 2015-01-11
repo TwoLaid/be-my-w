@@ -40,6 +40,6 @@ div[role=page].selected {
 .container {
   padding-top: 30px;
 }
-nav .container {
+nav .container, footer .container {
   padding-top: 0;
 }
