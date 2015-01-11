@@ -1,0 +1,67 @@
+
+#car {
+    
+}
+
+#blueprint {
+    position: relative;
+    width: 785px;
+    height: 380px;
+    /*background: url('img/blueprint_i3.png');*/
+    background-size: contain;
+}
+
+.temperature {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 5px solid black;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgba(0,0,0,0.5);
+}
+.temperature-big {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+}
+
+.seat-temperature-driver {
+    position: absolute;
+    top: 102px;
+    left: 400px;
+}
+.seat-temperature-passenger {
+    position: absolute;
+    top: 220px;
+    left: 400px;
+}
+.seat-position-driver {
+    position: absolute;
+    top: 85px;
+    left: 343px;
+}
+.seat-position-driver-label {
+    position: absolute;
+    top: 70px;
+    left: 370px;
+    background: white;
+}
+
+#ac-temperature {
+    position: absolute;
+    left: 450px;
+    top: 150px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.15;    
+}
