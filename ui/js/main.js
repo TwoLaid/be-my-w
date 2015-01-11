@@ -1,5 +1,10 @@
 API_HOST = location.host;
 
+var update = function() {
+    var preferences = getValues();
+    postPreferences(preferences);
+};
+
 var setTemperature = function(temperature){
     var gauge = $('#tempGauge'),
     gaugeText = $('#tempValue'),
@@ -39,6 +44,11 @@ var getValues = function() {
         } else {    
             var checked = $(':checked', form);
             values[action] = checked.attr('id') || 'off';
+        }
+
+        if ($(form).attr("id") === 'destinationForm') {
+            values['destination_lon'] = $('#destination_lon').val();
+            values['destination_lat'] = $('#destination_lat').val();
         }
     });
     return values;    
@@ -185,11 +195,6 @@ $(document).ready(function() {
 
     // Driving Options Management
 
-    var update = function() {
-        var preferences = getValues();
-        postPreferences(preferences);
-    };
-
     $('form').change(update);
 
     var gauge = $('#tempGauge'),
@@ -246,6 +251,8 @@ $(document).ready(function() {
                 destinationMarker = new google.maps.Marker({map: destinationMap, position: results[0].geometry.location});
 
                 $('#destination').val(results[0].formatted_address);
+                $('#destination_lon').val(results[0].geometry.location.lng());
+                $('#destination_lat').val(results[0].geometry.location.lat());
 
                 if (callback) {
                     callback();
