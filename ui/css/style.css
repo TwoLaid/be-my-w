@@ -12,7 +12,7 @@ body, html {
 
 div[role=page] {
   display: none;
-  min-height: calc(100% - 64px - 90px) 
+  min-height: calc(100% - 64px - 90px);
 }
 div[role=page].selected {
   display: block;
@@ -29,13 +29,12 @@ div[role=page].selected {
 }
 
 #logo-container i {
-	text-transform: none;
+  text-transform: none;
 }
 
 #logo-container em, h1 em, h2 em, h3 em, h4 em, h5 em, h6 em {
-	text-transform: none;
-	font-weight: 600;
-
+  text-transform: none;
+  font-weight: 600;
 
 .container {
   padding-top: 30px;
