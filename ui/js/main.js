@@ -61,7 +61,6 @@ var setValues = function(values) {
 
     $.each(values, function(key, value) {
         if (key === 'temperature'){
-            console.debug(key, value);
             $('#tempGauge').val(value);
             setTemperature(value);
         }
@@ -120,6 +119,12 @@ var getPreferences = function() {
 
 
 $(document).ready(function() {
+
+    // Hide Nav on Click
+
+    $('#nav-mobile li').click( function() {
+        slideInNav();
+    });
     
     // Routing Logic
 
