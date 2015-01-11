@@ -52,7 +52,6 @@ input[type=checkbox].switch {
 .switch + label.label {
   position: relative;
 }
-
 .switch + label.label:before {
   content: "";
   cursor: pointer;
@@ -70,12 +69,10 @@ input[type=checkbox].switch {
   left: -10px;
   box-shadow:inset 0 0 0 40px #5f5f5f,0 0 5px 0 #000;
 }
-
 .switch:checked + label.label:before{
   left: 170px;
   box-shadow:inset 0 0 0 0 #303f9f,0 0 5px 0 #000;
 }
-
 .switch-container {
   position: relative;
   width: 200px;
@@ -84,7 +81,6 @@ input[type=checkbox].switch {
   z-index:1;
   margin: 10px auto;
 }
-
 .switch + .label:after{
   left: 0;
   content:"";
@@ -97,7 +93,6 @@ input[type=checkbox].switch {
   border-radius:30px;
   position: absolute;
 }
-
 .switch:checked + .label:after {
   transition:box-shadow 500ms ease-in 0s, left 300ms ease-in 0s;
   box-shadow: inset 0 0 0 30px #303f9f;
@@ -107,6 +102,7 @@ input[type=checkbox].switch {
   margin-top: 40px;
   margin-bottom: 40px;
 }
+
 #loginform {
   margin-top: 20px;
 }
