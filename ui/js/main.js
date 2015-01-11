@@ -66,9 +66,11 @@ $(document).ready(function() {
     
     // Routing Logic
 
+    var restrictedHashes = ['#driving', '#meetings', '#preferences'];
     $(window).hashchange(function() {
         var hash = location.hash;
         if (hash == '') hash = '#main';
+        if (getUserId() == null && restrictedHashes.indexOf(hash) != -1) window.location.hash = '#login';
         if ('#' + $('div[role=page].selected').attr('id') == hash) return;
         $(window).scrollTop(0);
         $('div[role=page]').removeClass('selected');
@@ -137,20 +139,17 @@ $(document).ready(function() {
         postPreferences(preferences);
     };
 
-
-
     $('form').change(update);
 
     var gauge = $("#tempGauge"),
-
-      gaugeText = $("#tempValue"),
-      gaugeCText = $("#tempCValue");
+        gaugeText = $("#tempValue"),
+        gaugeCText = $("#tempCValue");
 
     var setTemperature = function(temperature){
         gaugeText.text(temperature);
         gaugeCText.text(Math.round((temperature - 32) * (5 / 9)));
         update();
-    }
+    };
 
     gauge.change(function(e){
         var temperature = $("#tempGauge").val();
